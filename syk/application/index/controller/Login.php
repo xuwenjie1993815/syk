@@ -28,7 +28,8 @@ class Login extends controller
             //     $school_info = Db::table('school')->where('admin_id',$user['id'])->find();
             //     Cookie::set('school_info',$school_info,604800);
             // }
-    		Cookie::set('adminInfo',$user,604800);
+            //30分钟cookies失效
+            Cookie::set('adminInfo',$user,108000);
     		return array('code' => 1,'msg' => '登陆成功,请稍等...' );die;
     	}else{
     		return array('code' => 2,'msg' => '用户名或密码错误' );die;
