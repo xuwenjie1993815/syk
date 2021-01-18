@@ -1785,7 +1785,6 @@ class Syj extends Base
         }
     }
 
-    
     //表格导出处理
     public function export_syj5(){
         //1.从数据库中取出数据
