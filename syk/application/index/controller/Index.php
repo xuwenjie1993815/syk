@@ -520,6 +520,25 @@ class Index extends Base
 		return array('code' => '1','announcement' => $announcement );
     }
 
+    //检查当前用户是否还有未读内容
+    public function read_ex()
+    {
+        $info = Cookie::get('adminInfo');
+        $where['a.if_cancel'] = '0';
+        $where['a.del_flag'] = '0';
+        $where['u.user_arr_id']  = ['neq',' '];
+        $user_arr_id = Db::table('announcement_user')->alias('u')->join('announcement a','u.announcement_id = a.id')->where($where)->field('u.user_arr_id')->select();
+        $count = 0;
+        foreach ($user_arr_id as $key => $value) {
+            $user_arr = explode(',', $value['user_arr_id']);
+            $re = in_array("'".$info['id']."'", $user_arr);
+            if ($re) {
+                $count++;
+            }
+        }
+        return array('count'=>$count);
+    }
+
     //户口性质检验(admin)
     public function registered()
     {

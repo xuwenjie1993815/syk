@@ -101,7 +101,23 @@ function read(id) {
 			data:{id:id},
 			success: function(data){
 				if (data.code == '1') {
-					top.location.reload();
+					//判断该用户是否还有未读项
+					$.ajax({
+						type: 'POST',
+						url: "{:url('index.php/index/index/read_ex')}",
+						dataType: 'json',
+						success: function(data){
+							if (data.count == '0') {
+								top.location.reload();
+							}else{
+								location.reload();
+							}
+						},
+						error:function(data) {
+							
+						}
+					});
+					
 				}else{
 
 				}
