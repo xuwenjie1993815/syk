@@ -1,0 +1,63 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" /> 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" />  
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.4/css/buttons.dataTables.min.css"/>
+{include file="../application/index/view/Public/_footer.html"/}
+
+<script src="http://cdn.gbtags.com/datatables/1.10.5/js/jquery.js"></script> 
+  <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>  
+  <script src="https://cdn.datatables.net/buttons/1.2.4/js/dataTables.buttons.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>   
+  <script src="https://cdn.datatables.net/buttons/1.2.4/js/buttons.html5.min.js "></script> 
+  <script src="http://cdn.datatables.net/plug-ins/28e7751dbec/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
+
+<!-- HTML代码片段中请勿添加<body>标签 //--> 
+  <div id="container"> 
+   <!-- 定义一个表格元素 --> 
+   <table id="example" class="display nowrap" cellspacing="0" width="100%">  
+        <thead>  
+            <tr>  
+                <th>Name</th>  
+                <th>Position</th>  
+                <th>Office</th>  
+                <th>Age</th>  
+                <th>Start date</th>  
+                <th>Salary</th>  
+            </tr>  
+        </thead> 
+        <tbody>  
+            <tr>  
+                <td>Tiger Nixon</td>  
+                <td>System Architect</td>  
+                <td>Edinburgh</td>  
+                <td>61</td>  
+                <td>2011/04/25</td>  
+                <td>$320,800</td>  
+            </tr>             
+        </tbody>                   
+      </thead>  
+    </table>  
+  </div>
+
+
+  <script type="text/javascript">
+  	
+$(document).ready(function() {  
+            $('#example').DataTable( {  
+                dom: 'Bfrtip',
+               "buttons": [  
+                       {  
+                           'extend': 'excelHtml5',  
+                           'text': '导出excel',//定义导出excel按钮的文字  
+                           'exportOptions': {  
+                               'modifier': {  
+                                   'page': 'current'  
+                               }  
+                           }  
+                       }  
+                   ]
+            });  
+        });
+
+  </script>

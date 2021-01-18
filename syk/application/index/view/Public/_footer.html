@@ -1,0 +1,50 @@
+<script type="text/javascript" src="__LIB__/jquery/1.9.1/jquery.min.js"></script> 
+<script type="text/javascript" src="__LIB__/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/h-ui/js/H-ui.min.js"></script>
+<script type="text/javascript" src="__STATIC__/h-ui.admin/js/H-ui.admin.js"></script> 
+<script type="text/javascript">
+$("#loginout").click(function () {
+	layer.confirm('确认要注销吗？',function(index){
+		$.ajax({
+			type: 'POST',
+			url: "{:url('/index.php/index/Index/loginout')}",
+			dataType: 'json',
+			success: function(data){
+	            if(data.code==1){
+	  				layer.msg('注销成功', {icon: 1,time:1000});
+                            window.location.reload();
+	            }else{
+	                layer.msg(data.msg,{icon:2,time:1000});
+                            window.location.reload();
+	            }
+			},
+		});		
+	});
+});
+
+
+
+//修改密码
+$("#pw_c").click(function() {
+	var index = layer.open({
+		type: 2,
+		title: '修改密码',
+		content: "{:url('/index.php/index/Index/change_password')}",
+		area: ['40%', '30%'],
+	});
+});
+
+//消息通知
+$("#msg").click(function () {
+	var index = layer.open({
+		type: 2,
+		title: '消息通知',
+		content: "{:url('/index.php/index/Index/announcement_list')}",
+		area: ['60%', '60%'],
+	});
+});
+
+
+
+</script>
+

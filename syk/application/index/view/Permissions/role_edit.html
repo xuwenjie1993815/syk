@@ -1,0 +1,112 @@
+{include file="../application/index/view/Public/_meta.html"/}
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$role.role}" placeholder="" id="roleName" name="">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">备注：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$role.remarks}" placeholder="" id="remarks" name="">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3">权限列表：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				{volist name="authority_list" id="vo"}
+				<dl class="permission-list">
+					<dt>
+						<label>
+							<input type="checkbox" value="" name="user-Character-0" id="{$vo.id}" {in name="$vo['id']" value="$role_authority_have_list"}checked{/in}>
+							{$vo.describe}
+						</label>
+					</dt>
+					{volist name="$vo.au2" id='au2'}
+					<dd>
+						<dl class="cl permission-list2">
+							<dt>
+								<label class="">
+									<input type="checkbox" value="" name="user-Character-0-0" id="{$au2.id}" {in name="$au2['id']" value="$role_authority_have_list"}checked{/in}>
+									{$au2.describe}</label>
+							</dt>
+							<dd>
+								{volist name="$au2.au3" id='au3'}
+								<label class="">
+									<input type="checkbox" value="" name="user-Character-0-0-0" id="{$au3.id}" {in name="$au3['id']" value="$role_authority_have_list"}checked{/in}>
+									{$au3.describe}</label>
+								{/volist}
+							</dd>
+						</dl>
+					</dd>
+					{/volist}
+				</dl>
+				{/volist}
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button type="button" class="btn btn-success radius" id="admin-role-save" name="admin-role-save" onclick="role_edit()"><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</article>
+{include file="../application/index/view/Public/_footer.html"/}
+<script type="text/javascript">
+	function role_edit() {
+		//主菜单选中项
+		var role1 = $("input[name='user-Character-0']:checked");  
+		var v1 = "";  
+	    for(var i = 0; role1 && i < role1.length; i++) {  
+	    	if (i>0) {
+	        	v1 += ','+$(role1[i]).attr('id');  
+	    	}else{
+	        	v1 += $(role1[i]).attr('id');  
+	    	}
+	    }
+		//一级菜单选中项
+		var role2 = $("input[name='user-Character-0-0']:checked");  
+		var v2 = "";  
+	    for(var i = 0; role2 && i < role2.length; i++) {  
+	    	if (i>0) {
+	        	v2 += ','+$(role2[i]).attr('id');  
+	    	}else{
+	        	v2 += $(role2[i]).attr('id');  
+	    	}
+	    }
+	    //功能点选中项
+		var role3 = $("input[name='user-Character-0-0-0']:checked");  
+		var v3 = "";  
+	    for(var i = 0; role3 && i < role3.length; i++) {  
+	    	if (i>0) {
+	        	v3 += ','+$(role3[i]).attr('id');  
+	    	}else{
+	        	v3 += $(role3[i]).attr('id');  
+	    	}
+	    }
+	    $.ajax({
+			type: 'POST',
+			dataType: 'json',
+			data:{v1:v1,v2:v2,v3:v3,roleName:$("#roleName").val(),remarks:$("#remarks").val()},
+			success: function(data){
+	            if(data.code==1){
+	            	layer.msg("操作成功", {icon: 1,time: 800 }, function () {
+	            		// layer.close(index_r);
+	            		// parent.location.reload();
+	                    window.location.href = document.location;
+	                });
+	            }else{
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+
+	            }
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+	}
+</script>

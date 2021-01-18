@@ -1,0 +1,1339 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<style type="text/css">
+    .hide{
+        display: none;
+    }
+</style>
+
+<link href="__LIB__/webuploader/0.1.5/webuploader.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class="page-container">
+	<form class="form form-horizontal" id="form-article-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">上报镇街：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				{$adminInfo.username}
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-2">报错类型：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<span class="select-box">
+				<select name="" class="select" id="type">
+                    <option value="0">请选择</option>
+					<option value="1" {if condition="$report_info.type eq 1"} selected="selected" {/if}>停发失业金和医保</option>
+                    <option value="2" {if condition="$report_info.type eq 2"} selected="selected" {/if}>未接收缴费历史确认</option>
+                    <option value="3" {if condition="$report_info.type eq 3"} selected="selected" {/if}>失业人员账号维护</option>
+                    <option value="4" {if condition="$report_info.type eq 4"} selected="selected" {/if}>户籍地报错</option>
+                    <option value="5" {if condition="$report_info.type eq 5"} selected="selected" {/if}>享受月份报错</option>
+                    <option value="6" {if condition="$report_info.type eq 6"} selected="selected" {/if}>系统问题</option>
+                    <option value="7" {if condition="$report_info.type eq 7"} selected="selected" {/if}>信息查询</option>
+                    <option value="8" {if condition="$report_info.type eq 8"} selected="selected" {/if}>清退</option>
+                    <option value="9" {if condition="$report_info.type eq 9"} selected="selected" {/if}>其他</option>
+				</select>
+				</span>
+			</div>
+		</div>
+		<div class="row cl hide name">
+			<label class="form-label col-xs-4 col-sm-2">用户姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$report_info.name}" placeholder="" id="name" name="">
+			</div>
+		</div>
+        <div class="row cl hide six">
+            <label class="form-label col-xs-4 col-sm-2">性别：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                <select name="" class="select" id="six">
+                    <option value="">请选择</option>
+                    <option value="1" {if condition="$report_info.six eq 1"} selected="selected" {/if}>男</option>
+                    <option value="2" {if condition="$report_info.six eq 2"} selected="selected" {/if}>女</option>
+                </select>
+                </span>
+            </div>
+        </div>
+		<div class="row cl hide pid">
+			<label class="form-label col-xs-4 col-sm-2">身份证：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$report_info.pid}" placeholder="" id="pid" name="">
+			</div>
+		</div>
+        <!-- 失业停发 原因 -->
+        <div class="row cl hide reason">
+            <label class="form-label col-xs-4 col-sm-2">停发原因：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+                <select name="" class="select" id="reason">
+                    <option value="">请选择</option>
+                    <option value="1" {if condition="$report_info.reason eq 1"} selected="selected" {/if}>退休</option>
+                    <option value="2" {if condition="$report_info.reason eq 2"} selected="selected" {/if}>死亡</option>
+                    <option value="3" {if condition="$report_info.reason eq 3"} selected="selected" {/if}>就业</option>
+                    <option value="4" {if condition="$report_info.reason eq 4"} selected="selected" {/if}>创业</option>
+                </select>
+                </span>
+            </div>
+        </div>
+        <!-- 个人社保账号 -->
+        <div class="row cl hide socialSecurity">
+            <label class="form-label col-xs-4 col-sm-2">个人社保账号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$report_info.socialSecurity}" placeholder="" id="socialSecurity" name="">
+            </div>
+        </div>
+        <!-- 银行 -->
+        <div class="row cl hide bank">
+            <label class="form-label col-xs-4 col-sm-2">银行：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$report_info.bank}" placeholder="" id="bank" name="">
+            </div>
+        </div>
+        <!-- 银行账号 -->
+        <div class="row cl hide bankNumber">
+            <label class="form-label col-xs-4 col-sm-2">银行账号：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$report_info.bankNumber}" placeholder="" id="bankNumber" name="">
+            </div>
+        </div>
+        <!-- 银行账号 -->
+        <div class="row cl hide openBank">
+            <label class="form-label col-xs-4 col-sm-2">开户行：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="text" class="input-text" value="{$report_info.openBank}" placeholder="" id="openBank" name="">
+            </div>
+        </div>
+        <!-- 所属镇街 -->
+        <div class="row cl hide belongStreet">
+            <label class="form-label col-xs-4 col-sm-2">所属镇街：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <span class="select-box">
+
+                <select class="select" id="belongStreet" size="1">
+                    <option value="" selected>请选择</option>
+                    {volist name="$admin_list" id="vo"}
+                    <option value="{$vo.id}"  {if condition="$report_info.belongStreet eq $vo.id"} selected="selected" {/if}> {$vo.username}</option>
+                    {/volist}
+                </select>
+                </span>
+            </div>
+        </div>
+
+        <!-- 区级通知月份 -->
+        <div class="row cl hide qjtzyf">
+            <label class="form-label col-xs-4 col-sm-2">区级通知月份：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="" id="qjtzyf" cols="" rows="" class="textarea"  placeholder="" datatype="*0-100" dragonfly="true" nullmsg="内容不能为空！" onKeyUp="$.Huitextarealength(this,200)">{$report_info.qjtzyf}</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+            </div>
+        </div>
+
+        <!-- 镇街系统月份 -->
+        <div class="row cl hide zjstyf">
+            <label class="form-label col-xs-4 col-sm-2">镇街系统月份：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <textarea name="" id="zjstyf" cols="" rows="" class="textarea"  placeholder="" datatype="*0-100" dragonfly="true" nullmsg="内容不能为空！" onKeyUp="$.Huitextarealength(this,200)">{$report_info.zjstyf}</textarea>
+                <p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+            </div>
+        </div>
+        <!-- 金额 -->
+        <div class="row cl hide price">
+            <label class="form-label col-xs-4 col-sm-2">金额：</label>
+            <div class="formControls col-xs-8 col-sm-9">
+                <input type="number" class="input-text" value="{$report_info.price}" placeholder="" id="price" name="">元
+            </div>
+        </div>
+
+		<div class="row cl hide content">
+			<label class="form-label col-xs-4 col-sm-2">备注：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<textarea name="" id="content" cols="" rows="" class="textarea"  placeholder="" datatype="*0-100" dragonfly="true" nullmsg="报错内容不能为空！" onKeyUp="$.Huitextarealength(this,200)">{$report_info.content}</textarea>
+				<p class="textarea-numberbar"><em class="textarea-length">0</em>/200</p>
+			</div>
+		</div>
+		<div class="row cl enclosure">
+			<label class="form-label col-xs-4 col-sm-2">附件上传：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<div class="uploader-list-container"> 
+					<div class="queueList">
+						<div id="dndArea" class="placeholder">
+							<div id="filePicker-2"></div>
+							<p>或将图片拖到这里，单次支持多个文件同时上传</p>
+						</div>
+					</div>
+					<div class="statusBar" style="display:none;">
+						<div class="progress"> <span class="text">0%</span> <span class="percentage"></span> </div>
+						<div class="info"></div>
+						<div class="btns">
+							<div id="filePicker2"></div>
+							<div class="uploadBtn">开始上传</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-2">
+				<button onClick="article_save_submit();" class="btn btn-primary radius" type="button"><i class="Hui-iconfont">&#xe632;</i> 提交</button>
+			</div>
+		</div>
+	</form>
+</div>
+{include file="../application/index/view/Public/_footer.html"/}
+<!--请在下方写此页面业务相关的脚本--> 
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/jquery.validate.js"></script> 
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/validate-methods.js"></script> 
+<script type="text/javascript" src="__LIB__/jquery.validation/1.14.0/messages_zh.js"></script> 
+<script type="text/javascript" src="__LIB__/webuploader/0.1.5/webuploader.min.js"></script>
+<script type="text/javascript">
+
+
+
+function article_save_submit() {
+
+    var index_r = layer.load(0, {
+        shade: [0.1,'#fff'] //0.1透明度的白色背景
+    });
+
+    //判断提交的报错类型 
+    var typenName = $("#type option:selected").text();
+    var type = $("#type").val();
+    var name = $("#name").val();
+    var pid = $("#pid").val();
+    var content = $("#content").val();
+    var socialSecurity = $("#socialSecurity").val();
+    var bank = $("#bank").val();
+    var bankNumber = $("#bankNumber").val();
+    var openBank = $("#openBank").val();
+    var qjtzyf = $("#qjtzyf").val();
+    var zjstyf = $("#zjstyf").val();
+    var six = $("#six").val();
+    var reason = $("#reason").val();
+    var belongStreet = $("#belongStreet").val();
+    var price = $("#price").val();
+    //获取图片
+    var arr = [];
+    var lengli = $(".filelist li").length;
+    for(var i=0;i<lengli;i++){
+        arr.push($("#WU_FILE_"+i).children('.title').text());
+    }
+    var enclosure = JSON.stringify(arr);
+    switch(type) {
+        case '1':
+            // name+six+pid+reason+enclosure+content
+            //判断数据有效性
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+
+        break;
+        case '2':
+            // socialSecurity+name+six+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (socialSecurity == '') {
+                layer.msg('请填写个人社保号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '3':
+        // name+six+pid+bank+bankNumber+openBank+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+            if (bank == '') {
+                layer.msg('请填写所属银行', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (bankNumber == '') {
+                layer.msg('请填写银行卡号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (openBank == '') {
+                layer.msg('请填写开户行', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '4':
+        //name+pid+six+belongStreet+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+            if (belongStreet == '') {
+                layer.msg('请填写所属街道', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '5':
+        //name+six+pid+qjtzyf+zjstyf+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+            if (qjtzyf == '') {
+                layer.msg('请填写区级通知月份', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (zjstyf == '') {
+                layer.msg('请填写镇街系统月份', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '6':
+        //enclosure+content
+            if (content == '') {
+                layer.msg('请填写备注', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '7':
+        //name+six+pid+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+        break;
+        case '8':
+        //name+six+pid+price+enclosure+content
+            if (name == '') {
+                layer.msg('请填写上报用户姓名', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+            if (pid == '') {
+                layer.msg('请填写身份证号', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }else{
+                var ret = judge_id(pid);
+                if (ret != 1) {
+                    layer.msg('身份证号有误！', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                    return;
+                }
+            }
+            if (price == '') {
+                layer.msg('请填写金额', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        case '9':
+        //enclosure+content
+            if (content == '') {
+                layer.msg('请填写备注', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            }
+        break;
+        default:
+            layer.msg('请先选择报错类型', {icon: 2,time: 1000});
+                            layer.close(index_r);
+                return;
+            
+    } 
+	
+	$.ajax({
+		type: 'POST',
+		dataType: 'json',
+		data:{type:type,name:name,pid:pid,content:content,enclosure:enclosure,six:six,reason:reason,socialSecurity:socialSecurity,bank:bank,bankNumber:bankNumber,openBank:openBank,belongStreet:belongStreet,qjtzyf:qjtzyf,zjstyf:zjstyf,price:price,typenName:typenName},
+		success: function(data){
+            if(data.code==1){
+            	layer.msg("上传成功", {icon: 1,time: 800 }, function () {
+            		layer.close(index_r);
+            		parent.location.reload();
+                    // window.location.href = document.location;
+                });
+            }else{
+				layer.close(index_r);
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+            		layer.close(index_r);
+
+            }
+		},
+		error:function(data) {
+			layer.close(index_r);
+			layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+            		layer.close(index_r);
+		}
+	});	
+
+}
+
+//验证身份证
+function judge_id(id) {
+    var my_id = id;
+    my_id = my_id.toUpperCase();
+    if (my_id.length == 18) {
+        //判断是否18位
+        //正则判断是否符合身份证的格式
+        if (!/^\d{17}\d|X$/i.test(my_id)) {
+            return 0;
+        } else {
+            //定义身份证号前17位的校验权
+            var arr_right = [7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2];
+            //前17位运算后的正确校验码
+            var arr_valid = [1, 0, "X", 9, 8, 7, 6, 5, 4, 3, 2];
+            var sum = 0, check_code;
+            for (var i = 0; i < my_id.length-1; i++) {
+                sum += parseInt(my_id[i]) * arr_right[i];
+            }
+            check_code = sum % 11;
+            if (arr_valid[check_code] == my_id.substr(17,1)) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+    } else {
+        return 0;
+    }
+}
+
+$(function(){
+
+	$('.skin-minimal input').iCheck({
+		checkboxClass: 'icheckbox-blue',
+		radioClass: 'iradio-blue',
+		increaseArea: '20%'
+	});
+	
+	$list = $("#fileList"),
+	$btn = $("#btn-star"),
+	state = "pending",
+	uploader;
+
+	var uploader = WebUploader.create({
+		auto: true,
+		swf: '__LIB__/webuploader/0.1.5/Uploader.swf',
+	
+		// 文件接收服务端。
+		server: '__LIB__/webuploader/0.1.5/server/fileupload.php',
+	
+		// 选择文件的按钮。可选。
+		// 内部根据当前运行是创建，可能是input元素，也可能是flash.
+		pick: '#filePicker',
+	
+		// 不压缩image, 默认如果是jpeg，文件上传前会压缩一把再上传！
+		resize: false,
+		// 只允许选择图片文件。
+		accept: {
+			title: 'Images',
+			extensions: 'gif,jpg,jpeg,bmp,png',
+			mimeTypes: 'image/*'
+		}
+	});
+	uploader.on( 'fileQueued', function( file ) {
+		var $li = $(
+			'<div id="' + file.id + '" class="item">' +
+				'<div class="pic-box"><img></div>'+
+				'<div class="info">' + file.name + '</div>' +
+				'<p class="state">等待上传...</p>'+
+			'</div>'
+		),
+		$img = $li.find('img');
+		$list.append( $li );
+	
+		// 创建缩略图
+		// 如果为非图片文件，可以不用调用此方法。
+		// thumbnailWidth x thumbnailHeight 为 100 x 100
+		uploader.makeThumb( file, function( error, src ) {
+			if ( error ) {
+				$img.replaceWith('<span>不能预览</span>');
+				return;
+			}
+	
+			$img.attr( 'src', src );
+		}, thumbnailWidth, thumbnailHeight );
+	});
+	// 文件上传过程中创建进度条实时显示。
+	uploader.on( 'uploadProgress', function( file, percentage ) {
+		var $li = $( '#'+file.id ),
+			$percent = $li.find('.progress-box .sr-only');
+	
+		// 避免重复创建
+		if ( !$percent.length ) {
+			$percent = $('<div class="progress-box"><span class="progress-bar radius"><span class="sr-only" style="width:0%"></span></span></div>').appendTo( $li ).find('.sr-only');
+		}
+		$li.find(".state").text("上传中");
+		$percent.css( 'width', percentage * 100 + '%' );
+	});
+	
+	// 文件上传成功，给item添加成功class, 用样式标记上传成功。
+	uploader.on( 'uploadSuccess', function( file ) {
+		$( '#'+file.id ).addClass('upload-state-success').find(".state").text("已上传");
+	});
+	
+	// 文件上传失败，显示上传出错。
+	uploader.on( 'uploadError', function( file ) {
+		$( '#'+file.id ).addClass('upload-state-error').find(".state").text("上传出错");
+	});
+	
+	// 完成上传完了，成功或者失败，先删除进度条。
+	uploader.on( 'uploadComplete', function( file ) {
+		$( '#'+file.id ).find('.progress-box').fadeOut();
+	});
+	uploader.on('all', function (type) {
+        if (type === 'startUpload') {
+            state = 'uploading';
+        } else if (type === 'stopUpload') {
+            state = 'paused';
+        } else if (type === 'uploadFinished') {
+            state = 'done';
+        }
+
+        if (state === 'uploading') {
+            $btn.text('暂停上传');
+        } else {
+            $btn.text('开始上传');
+        }
+    });
+
+    $btn.on('click', function () {
+        if (state === 'uploading') {
+            uploader.stop();
+        } else {
+            uploader.upload();
+        }
+    });
+
+});
+
+(function( $ ){
+    // 当domReady的时候开始初始化
+    $(function() {
+        var $wrap = $('.uploader-list-container'),
+
+            // 图片容器
+            $queue = $( '<ul class="filelist"></ul>' )
+                .appendTo( $wrap.find( '.queueList' ) ),
+
+            // 状态栏，包括进度和控制按钮
+            $statusBar = $wrap.find( '.statusBar' ),
+
+            // 文件总体选择信息。
+            $info = $statusBar.find( '.info' ),
+
+            // 上传按钮
+            $upload = $wrap.find( '.uploadBtn' ),
+
+            // 没选择文件之前的内容。
+            $placeHolder = $wrap.find( '.placeholder' ),
+
+            $progress = $statusBar.find( '.progress' ).hide(),
+
+            // 添加的文件数量
+            fileCount = 0,
+
+            // 添加的文件总大小
+            fileSize = 0,
+
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+
+            // 缩略图大小
+            thumbnailWidth = 110 * ratio,
+            thumbnailHeight = 110 * ratio,
+
+            // 可能有pedding, ready, uploading, confirm, done.
+            state = 'pedding',
+
+            // 所有文件的进度信息，key为file id
+            percentages = {},
+            // 判断浏览器是否支持图片的base64
+            isSupportBase64 = ( function() {
+                var data = new Image();
+                var support = true;
+                data.onload = data.onerror = function() {
+                    if( this.width != 1 || this.height != 1 ) {
+                        support = false;
+                    }
+                }
+                data.src = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==";
+                return support;
+            } )(),
+
+            // 检测是否已经安装flash，检测flash的版本
+            flashVersion = ( function() {
+                var version;
+
+                try {
+                    version = navigator.plugins[ 'Shockwave Flash' ];
+                    version = version.description;
+                } catch ( ex ) {
+                    try {
+                        version = new ActiveXObject('ShockwaveFlash.ShockwaveFlash')
+                                .GetVariable('$version');
+                    } catch ( ex2 ) {
+                        version = '0.0';
+                    }
+                }
+                version = version.match( /\d+/g );
+                return parseFloat( version[ 0 ] + '.' + version[ 1 ], 10 );
+            } )(),
+
+            supportTransition = (function(){
+                var s = document.createElement('p').style,
+                    r = 'transition' in s ||
+                            'WebkitTransition' in s ||
+                            'MozTransition' in s ||
+                            'msTransition' in s ||
+                            'OTransition' in s;
+                s = null;
+                return r;
+            })(),
+
+            // WebUploader实例
+            uploader;
+
+        if ( !WebUploader.Uploader.support('flash') && WebUploader.browser.ie ) {
+
+            // flash 安装了但是版本过低。
+            if (flashVersion) {
+                (function(container) {
+                    window['expressinstallcallback'] = function( state ) {
+                        switch(state) {
+                            case 'Download.Cancelled':
+                                alert('您取消了更新！')
+                                break;
+
+                            case 'Download.Failed':
+                                alert('安装失败')
+                                break;
+
+                            default:
+                                alert('安装已成功，请刷新！');
+                                break;
+                        }
+                        delete window['expressinstallcallback'];
+                    };
+
+                    var swf = 'expressInstall.swf';
+                    // insert flash object
+                    var html = '<object type="application/' +
+                            'x-shockwave-flash" data="' +  swf + '" ';
+
+                    if (WebUploader.browser.ie) {
+                        html += 'classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" ';
+                    }
+
+                    html += 'width="100%" height="100%" style="outline:0">'  +
+                        '<param name="movie" value="' + swf + '" />' +
+                        '<param name="wmode" value="transparent" />' +
+                        '<param name="allowscriptaccess" value="always" />' +
+                    '</object>';
+
+                    container.html(html);
+
+                })($wrap);
+
+            // 压根就没有安转。
+            } else {
+                $wrap.html('<a href="http://www.adobe.com/go/getflashplayer" target="_blank" border="0"><img alt="get flash player" src="http://www.adobe.com/macromedia/style_guide/images/160x41_Get_Flash_Player.jpg" /></a>');
+            }
+
+            return;
+        } else if (!WebUploader.Uploader.support()) {
+            alert( 'Web Uploader 不支持您的浏览器！');
+            return;
+        }
+
+        // 实例化
+        uploader = WebUploader.create({
+            pick: {
+                id: '#filePicker-2',
+                label: '点击选择图片'
+            },
+            formData: {
+                uid: 123
+            },
+            dnd: '#dndArea',
+            paste: '#uploader',
+            swf: '__LIB__/webuploader/0.1.5/Uploader.swf',
+            chunked: false,
+            chunkSize: 512 * 1024,
+            server: '__LIB__/webuploader/0.1.5/server/fileupload.php',
+            // runtimeOrder: 'flash',
+
+            // accept: {
+            //     title: 'Images',
+            //     extensions: 'gif,jpg,jpeg,bmp,png',
+            //     mimeTypes: 'image/*'
+            // },
+
+            // 禁掉全局的拖拽功能。这样不会出现图片拖进页面的时候，把图片打开。
+            disableGlobalDnd: true,
+            fileNumLimit: 300,
+            fileSizeLimit: 200 * 1024 * 1024,    // 200 M
+            fileSingleSizeLimit: 50 * 1024 * 1024    // 50 M
+        });
+
+        // 拖拽时不接受 js, txt 文件。
+        uploader.on( 'dndAccept', function( items ) {
+            var denied = false,
+                len = items.length,
+                i = 0,
+                // 修改js类型
+                unAllowed = 'text/plain;application/javascript ';
+
+            for ( ; i < len; i++ ) {
+                // 如果在列表里面
+                if ( ~unAllowed.indexOf( items[ i ].type ) ) {
+                    denied = true;
+                    break;
+                }
+            }
+
+            return !denied;
+        });
+
+        uploader.on('dialogOpen', function() {
+            console.log('here');
+        });
+
+        // uploader.on('filesQueued', function() {
+        //     uploader.sort(function( a, b ) {
+        //         if ( a.name < b.name )
+        //           return -1;
+        //         if ( a.name > b.name )
+        //           return 1;
+        //         return 0;
+        //     });
+        // });
+
+        // 添加“添加文件”的按钮，
+        uploader.addButton({
+            id: '#filePicker2',
+            label: '继续添加'
+        });
+
+        uploader.on('ready', function() {
+            window.uploader = uploader;
+        });
+
+        // 当有文件添加进来时执行，负责view的创建
+        function addFile( file ) {
+            var $li = $( '<li id="' + file.id + '">' +
+                    '<p class="title">' + file.name + '</p>' +
+                    '<p class="imgWrap"></p>'+
+                    '<p class="progress"><span></span></p>' +
+                    '</li>' ),
+
+                $btns = $('<div class="file-panel">' +
+                    '<span class="cancel">删除</span>' +
+                    '<span class="rotateRight">向右旋转</span>' +
+                    '<span class="rotateLeft">向左旋转</span></div>').appendTo( $li ),
+                $prgress = $li.find('p.progress span'),
+                $wrap = $li.find( 'p.imgWrap' ),
+                $info = $('<p class="error"></p>'),
+
+                showError = function( code ) {
+                    switch( code ) {
+                        case 'exceed_size':
+                            text = '文件大小超出';
+                            break;
+
+                        case 'interrupt':
+                            text = '上传暂停';
+                            break;
+
+                        default:
+                            text = '上传失败，请重试';
+                            break;
+                    }
+
+                    $info.text( text ).appendTo( $li );
+                };
+
+            if ( file.getStatus() === 'invalid' ) {
+                showError( file.statusText );
+            } else {
+                // @todo lazyload
+                $wrap.text( '预览中' );
+                uploader.makeThumb( file, function( error, src ) {
+                    var img;
+
+                    if ( error ) {
+                        $wrap.text( '不能预览' );
+                        return;
+                    }
+
+                    if( isSupportBase64 ) {
+                        img = $('<img src="'+src+'">');
+                        $wrap.empty().append( img );
+                    } else {
+                        $.ajax('__LIB__/webuploader/0.1.5/server/preview.php', {
+                            method: 'POST',
+                            data: src,
+                            dataType:'json'
+                        }).done(function( response ) {
+                            if (response.result) {
+                                img = $('<img src="'+response.result+'">');
+                                $wrap.empty().append( img );
+                            } else {
+                                $wrap.text("预览出错");
+                            }
+                        });
+                    }
+                }, thumbnailWidth, thumbnailHeight );
+
+                percentages[ file.id ] = [ file.size, 0 ];
+                file.rotation = 0;
+            }
+
+            file.on('statuschange', function( cur, prev ) {
+                if ( prev === 'progress' ) {
+                    $prgress.hide().width(0);
+                } else if ( prev === 'queued' ) {
+                    $li.off( 'mouseenter mouseleave' );
+                    $btns.remove();
+                }
+
+                // 成功
+                if ( cur === 'error' || cur === 'invalid' ) {
+                    console.log( file.statusText );
+                    showError( file.statusText );
+                    percentages[ file.id ][ 1 ] = 1;
+                } else if ( cur === 'interrupt' ) {
+                    showError( 'interrupt' );
+                } else if ( cur === 'queued' ) {
+                    percentages[ file.id ][ 1 ] = 0;
+                } else if ( cur === 'progress' ) {
+                    $info.remove();
+                    $prgress.css('display', 'block');
+                } else if ( cur === 'complete' ) {
+                    $li.append( '<span class="success"></span>' );
+                }
+
+                $li.removeClass( 'state-' + prev ).addClass( 'state-' + cur );
+            });
+
+            $li.on( 'mouseenter', function() {
+                $btns.stop().animate({height: 30});
+            });
+
+            $li.on( 'mouseleave', function() {
+                $btns.stop().animate({height: 0});
+            });
+
+            $btns.on( 'click', 'span', function() {
+                var index = $(this).index(),
+                    deg;
+
+                switch ( index ) {
+                    case 0:
+                        uploader.removeFile( file );
+                        return;
+
+                    case 1:
+                        file.rotation += 90;
+                        break;
+
+                    case 2:
+                        file.rotation -= 90;
+                        break;
+                }
+
+                if ( supportTransition ) {
+                    deg = 'rotate(' + file.rotation + 'deg)';
+                    $wrap.css({
+                        '-webkit-transform': deg,
+                        '-mos-transform': deg,
+                        '-o-transform': deg,
+                        'transform': deg
+                    });
+                } else {
+                    $wrap.css( 'filter', 'progid:DXImageTransform.Microsoft.BasicImage(rotation='+ (~~((file.rotation/90)%4 + 4)%4) +')');
+
+                }
+
+
+            });
+
+            $li.appendTo( $queue );
+        }
+
+        // 负责view的销毁
+        function removeFile( file ) {
+            var $li = $('#'+file.id);
+
+            delete percentages[ file.id ];
+            updateTotalProgress();
+            $li.off().find('.file-panel').off().end().remove();
+        }
+
+        function updateTotalProgress() {
+            var loaded = 0,
+                total = 0,
+                spans = $progress.children(),
+                percent;
+
+            $.each( percentages, function( k, v ) {
+                total += v[ 0 ];
+                loaded += v[ 0 ] * v[ 1 ];
+            } );
+
+            percent = total ? loaded / total : 0;
+
+
+            spans.eq( 0 ).text( Math.round( percent * 100 ) + '%' );
+            spans.eq( 1 ).css( 'width', Math.round( percent * 100 ) + '%' );
+            updateStatus();
+        }
+
+        function updateStatus() {
+            var text = '', stats;
+
+            if ( state === 'ready' ) {
+                text = '选中' + fileCount + '张图片，共' +
+                        WebUploader.formatSize( fileSize ) + '。';
+            } else if ( state === 'confirm' ) {
+                stats = uploader.getStats();
+                if ( stats.uploadFailNum ) {
+                    text = '已成功上传' + stats.successNum+ '张照片至XX相册，'+
+                        stats.uploadFailNum + '张照片上传失败，<a class="retry" href="#">重新上传</a>失败图片或<a class="ignore" href="#">忽略</a>'
+                }
+
+            } else {
+                stats = uploader.getStats();
+                text = '共' + fileCount + '张（' +
+                        WebUploader.formatSize( fileSize )  +
+                        '），已上传' + stats.successNum + '张';
+
+                if ( stats.uploadFailNum ) {
+                    text += '，失败' + stats.uploadFailNum + '张';
+                }
+            }
+
+            $info.html( text );
+        }
+
+        function setState( val ) {
+            var file, stats;
+
+            if ( val === state ) {
+                return;
+            }
+
+            $upload.removeClass( 'state-' + state );
+            $upload.addClass( 'state-' + val );
+            state = val;
+
+            switch ( state ) {
+                case 'pedding':
+                    $placeHolder.removeClass( 'element-invisible' );
+                    $queue.hide();
+                    $statusBar.addClass( 'element-invisible' );
+                    uploader.refresh();
+                    break;
+
+                case 'ready':
+                    $placeHolder.addClass( 'element-invisible' );
+                    $( '#filePicker2' ).removeClass( 'element-invisible');
+                    $queue.show();
+                    $statusBar.removeClass('element-invisible');
+                    uploader.refresh();
+                    break;
+
+                case 'uploading':
+                    $( '#filePicker2' ).addClass( 'element-invisible' );
+                    $progress.show();
+                    $upload.text( '暂停上传' );
+                    break;
+
+                case 'paused':
+                    $progress.show();
+                    $upload.text( '继续上传' );
+                    break;
+
+                case 'confirm':
+                    $progress.hide();
+                    $( '#filePicker2' ).removeClass( 'element-invisible' );
+                    $upload.text( '开始上传' );
+
+                    stats = uploader.getStats();
+                    if ( stats.successNum && !stats.uploadFailNum ) {
+                        setState( 'finish' );
+                        return;
+                    }
+                    break;
+                case 'finish':
+                    stats = uploader.getStats();
+                    if ( stats.successNum ) {
+                        alert( '上传成功' );
+                    } else {
+                        // 没有成功的图片，重设
+                        state = 'done';
+                        location.reload();
+                    }
+                    break;
+            }
+
+            updateStatus();
+        }
+
+        uploader.onUploadProgress = function( file, percentage ) {
+            var $li = $('#'+file.id),
+                $percent = $li.find('.progress span');
+
+            $percent.css( 'width', percentage * 100 + '%' );
+            percentages[ file.id ][ 1 ] = percentage;
+            updateTotalProgress();
+        };
+
+        uploader.onFileQueued = function( file ) {
+            fileCount++;
+            fileSize += file.size;
+
+            if ( fileCount === 1 ) {
+                $placeHolder.addClass( 'element-invisible' );
+                $statusBar.show();
+            }
+
+            addFile( file );
+            setState( 'ready' );
+            updateTotalProgress();
+        };
+
+        uploader.onFileDequeued = function( file ) {
+            fileCount--;
+            fileSize -= file.size;
+
+            if ( !fileCount ) {
+                setState( 'pedding' );
+            }
+
+            removeFile( file );
+            updateTotalProgress();
+
+        };
+
+        uploader.on( 'all', function( type ) {
+            var stats;
+            switch( type ) {
+                case 'uploadFinished':
+                    setState( 'confirm' );
+                    break;
+
+                case 'startUpload':
+                    setState( 'uploading' );
+                    break;
+
+                case 'stopUpload':
+                    setState( 'paused' );
+                    break;
+
+            }
+        });
+
+        uploader.onError = function( code ) {
+            alert( 'Eroor: ' + code );
+        };
+
+        $upload.on('click', function() {
+            if ( $(this).hasClass( 'disabled' ) ) {
+                return false;
+            }
+
+            if ( state === 'ready' ) {
+                uploader.upload();
+            } else if ( state === 'paused' ) {
+                uploader.upload();
+            } else if ( state === 'uploading' ) {
+                uploader.stop();
+            }
+        });
+
+        $info.on( 'click', '.retry', function() {
+            uploader.retry();
+        } );
+
+        $info.on( 'click', '.ignore', function() {
+            alert( 'todo' );
+        } );
+
+        $upload.addClass( 'state-' + state );
+        updateTotalProgress();
+    });
+
+})( jQuery );
+
+
+$("#type").change(function(){
+  $(this).css("background-color","#FFFFCC");
+});
+
+
+//编辑时判断
+$(function(){
+    if ({$report_info}) {
+        var type = $("#type").val();
+        switch(type) {
+            case '1':
+                // name+six+pid+上传+下拉选择（退休、死亡、就业、创业）+备注
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".reason").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '2':
+                // 个人社保账号+name+six+上传+备注
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".socialSecurity").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+                
+            break;
+            case '3':
+                // name+six+pid+银行+银行账号+开户行+上传+备注
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".bank").css('display','block');
+                $(".bankNumber").css('display','block');
+                $(".openBank").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+                
+            break;
+            case '4':
+                //name+pid+six+所属街道+上传+备注
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".belongStreet").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '5':
+                //name+six+pid+区级通知月份+镇街系统月份+备注+上传
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".qjtzyf").css('display','block');
+                $(".zjstyf").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '6':
+                //备注+上传
+                $(".hide").css('display','none');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '7':
+                //name+six+pid+备注+上传
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '8':
+                //name+six+pid+金额+备注+上传
+                $(".hide").css('display','none');
+                $(".name").css('display','block');
+                $(".six").css('display','block');
+                $(".pid").css('display','block');
+                $(".price").css('display','block');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            case '9':
+                //备注+上传
+                $(".hide").css('display','none');
+                $(".enclosure").css('display','block');
+                $(".content").css('display','block');
+            break;
+            default:
+                $(".hide").css('display','none');
+                
+        } 
+    }
+});
+
+$("#type").on("change",
+function() {
+    var type = $("#type").val();
+    switch(type) {
+        case '1':
+            // name+six+pid+上传+下拉选择（退休、死亡、就业、创业）+备注
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".reason").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '2':
+            // 个人社保账号+name+six+上传+备注
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".socialSecurity").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+            
+        break;
+        case '3':
+            // name+six+pid+银行+银行账号+开户行+上传+备注
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".bank").css('display','block');
+            $(".bankNumber").css('display','block');
+            $(".openBank").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+            
+        break;
+        case '4':
+            //name+pid+six+所属街道+上传+备注
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".belongStreet").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '5':
+            //name+six+pid+区级通知月份+镇街系统月份+备注+上传
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".qjtzyf").css('display','block');
+            $(".zjstyf").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '6':
+            //备注+上传
+            $(".hide").css('display','none');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '7':
+            //name+six+pid+备注+上传
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '8':
+            //name+six+pid+金额+备注+上传
+            $(".hide").css('display','none');
+            $(".name").css('display','block');
+            $(".six").css('display','block');
+            $(".pid").css('display','block');
+            $(".price").css('display','block');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        case '9':
+            //备注+上传
+            $(".hide").css('display','none');
+            $(".enclosure").css('display','block');
+            $(".content").css('display','block');
+        break;
+        default:
+            $(".hide").css('display','none');
+            
+    } 
+});
+
+</script>
+</body>
+</html>

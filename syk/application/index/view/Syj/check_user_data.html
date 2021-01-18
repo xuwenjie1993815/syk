@@ -1,0 +1,156 @@
+{include file="../application/index/view/Public/_meta.html"/}
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 中小企业识别 <span class="c-gray en">&gt;</span> 中小企业识别 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+<div class="page-container">
+	<div class="text-c"> 
+
+		身份证号：<input type="text" id="pid" placeholder="" value="{$data.0.pid}" class="input-text" style="width:200px">
+
+<!-- 		社保账号：<input type="text" id="socialSecurity" placeholder="" value="" class="input-text" style="width:200px">
+
+		姓名：<input type="text" id="name" placeholder="" value="" class="input-text" style="width:200px"> -->
+
+		<button name="" id="screen" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+	</div>
+
+	<!-- <div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		企业为: <span id="type"></span>
+		<br><br>
+		参照政策：<span id="policy"></span>
+	</div> -->
+
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<th>个人社保号</th>
+					<th>姓名</th>
+					<th>性别</th>
+					<th>身份证号码 </th>
+					<th>年龄 </th>
+					<th>银行帐号 </th>
+					<th>具体到支行 </th>
+					<th>收款账号开户行 </th>
+					<th>收款账号省份 </th>
+					<th>收款账号地市 </th>
+					<th>收款账号地区码 </th>
+					<th>汇款用途 </th>
+					<th>基本保险金 </th>
+					<th>应发月数 </th>
+					<th>已发月数 </th>
+					<th>联系电话 </th>
+					<th>镇街名称 </th>
+					<th>其他备注 </th>
+					<th>数据所属月 </th>
+				</tr>
+			</thead>
+			{if condition="$data neq ''"}
+			{volist name="data" id="vo"}
+			<tbody>
+				<tr class="text-c">
+					<td>
+						{$vo.socialSecurity}
+					</td>
+					<td>
+						{$vo.name}
+					</td>
+					<td>
+						{$vo.sex}
+					</td>
+					<td>
+						{$vo.pid}
+					</td>
+					<td>
+						{$vo.age}
+					</td>
+					<td>
+						{$vo.bankAccount}
+					</td>
+					<td>
+						{$vo.bankBranch}
+					</td>
+					<td>
+						{$vo.startBank}
+					</td>
+					<td>
+						{$vo.accountProvince}
+					</td>
+					<td>
+						{$vo.accountCity}
+					</td>
+					<td>
+						{$vo.accountArea}
+					</td>
+					<td>
+						{$vo.remittancePurpose}
+					</td>
+					<td>
+						{$vo.benefits}
+					</td>
+					<td>
+						{$vo.monthNumber}
+					</td>
+					<td>
+						{$vo.sendMonthNumber}
+					</td>
+					<td>
+						{$vo.tel}
+					</td>
+					<td>
+						{$vo.zj_name}
+					</td>
+					<td>
+						{$vo.other_remarks}
+					</td>
+					<td>
+						{$vo.date}
+					</td>
+				</tr>
+			</tbody>
+			{/volist}
+			{/if}
+		</table>
+	</div>
+
+</div>
+
+ 
+{include file="../application/index/view/Public/_footer.html"/} <!--/_footer 作为公共模版分离出去-->
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+
+$('.table-sort').dataTable({
+	"aaSorting": [[ 18, "desc" ]],//默认第几个排序
+	"bStateSave": false,//状态保存
+	"pading":false,
+	"aoColumnDefs": [
+	  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+	  {"orderable":false,"aTargets":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18]}// 不参与排序的列
+	]
+});
+
+	$(function(){
+
+	    //提交查询
+	    $("#screen").click(function () {
+	    	var index = layer.load(0, {
+			 	shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+	    	var pid = $("#pid").val();
+	    	// var socialSecurity = $("#socialSecurity").val();
+	    	// var name = $("#name").val();
+	    	window.location.href = "http://"+window.location.host+"/syk/public/index.php/index/Syj/check_user_data.html?pid="+pid;
+	    });
+
+
+
+	    
+	});
+</script> 
+</body>
+</html>

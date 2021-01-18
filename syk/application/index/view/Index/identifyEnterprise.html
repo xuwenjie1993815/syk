@@ -1,0 +1,243 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<link rel="stylesheet" href="__LIB__/DataTables-1.10.21/media/buttons/buttons.dataTables.min.css"/>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 中小企业识别 <span class="c-gray en">&gt;</span> 中小企业识别 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+
+<div class="page-container">
+	<div class="text-c"> 
+
+		行业：
+		<span class="select-box" style="width:150px">
+			<select class="select" id="industry" size="1">
+				<option value="0" selected>请选择</option>
+				{volist name="$industry_list" id="vo"}
+				<option value="{$vo.id}">{$vo.name}</option>
+                {/volist}
+			</select>
+		</span>
+
+		营收：
+		<span class="select-box yingshou" style="width:150px">
+			<select class="select" id="yingshou" size="1">
+			</select>
+		</span>
+
+		资产总额：
+		<span class="select-box zichan" style="width:150px">
+			<select class="select" id="zichan" size="1">
+			</select>
+		</span>
+
+		从业人员数：
+		<span class="select-box congye" style="width:150px">
+			<select class="select" id="congye" size="1">
+			</select>
+		</span>
+		<button name="" id="screen" class="btn btn-success" type="submit"><i class="Hui-iconfont">&#xe665;</i> 查询</button>
+	</div>
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		企业为: <span id="type"></span>
+		<br><br>
+		参照政策：<span id="policy"></span>
+	</div>
+
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<div class="text-l">
+			<form enctype="multipart/form-data" method="post" id="" action="{:url('index/Index/import')}">
+				<span class="btn-upload form-group">
+				<input class="input-text upload-url" name="uploadfile-2" id="uploadfile-2" readonly="" style="width:200px" type="text-l" placeholder="点击上传文件">
+				<input multiple="" name="file_stu" class="input-file" type="file">
+				</span> <button type="submit" class="btn btn-w-m btn-primary btn-outline"> 开始导入</button>
+				<button type="button" class="btn btn-w-m btn-primary btn-outline"><a href="__UPLOADS__/mode/中小微企业识别excel模板.xls" style="color: rgb(255,255,250);" download>下载格式模板</a></button>
+			</form>
+		</div>
+	</div>
+
+
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<!-- <th ><input type="checkbox" name="" value=""></th> -->
+					<th>单位名称</th>
+					<th>类别</th>
+					<th>行业</th>
+					<th>营收数</th>
+					<th>从业数</th>
+					<th>资产数</th>
+					<th>查询时间</th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="gradecheck_list" id="vo"}
+					<tr class="text-c">
+						<!-- <td><input type="checkbox" value="{$vo.id}" name="registered_list"></td> -->
+						<td>
+							{$vo.name}
+						</td>
+						<td class="td-manage success">
+							{switch name="$vo.type"}
+							    {case value="1"}微型{/case}
+							    {case value="2"}小型{/case}
+							    {case value="3"}中型{/case}
+							    {case value="4"}大型{/case}
+							    {default /}未识别
+							{/switch}
+						</td>
+						<td>
+							{$vo.industryName}
+						</td>
+						<td>
+							{$vo.yingshou}
+						</td>
+						<td>
+							{$vo.congye}
+						</td>
+						<td>
+							{$vo.zichan}
+						</td>
+						<td>
+							{$vo.checktime}
+						</td>
+					</tr>
+				{/volist}
+			</tbody>
+		</table>
+	</div>
+
+</div>
+
+
+<!-- <form action="{:url('Index/import')}" enctype="multipart/form-data" method="post">
+      <div class="form-group">
+        <label for="exampleInputFile">导入Excel表格</label>
+        <input type="file" name="file" id="exampleInputFile">
+      </div>
+      <button type="submit" class="btn btn-default">提交</button>
+ </form> -->
+ 
+{include file="../application/index/view/Public/_footer.html"/} <!--/_footer 作为公共模版分离出去-->
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/jszip.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/buttons.html5.min.js"></script> 
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$(".portfolio-area li").Huihover();
+		$('.table-sort').dataTable({
+			"aaSorting": [[ 6, "desc" ]],//默认第几个排序
+			"bStateSave": false,//状态保存
+			"aoColumnDefs": [
+			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+			  {"orderable":false,"aTargets":[0,1,2,3,4,5]}// 制定列不参与排序
+			],
+			"autoWidth":true,
+			dom: 'Bfrtip',
+			language: {
+	            "sProcessing": "处理中...",
+	            "sLengthMenu": "显示 _MENU_ 项",
+	            "sZeroRecords": "没有匹配结果",
+	            "sInfo": "显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项",
+	            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+	            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+	            "sInfoPostFix": "",
+	            "sSearch": "搜索:",
+	            "sUrl": "",
+	            "sEmptyTable": "表中数据为空",
+	            "sLoadingRecords": "载入中...",
+	            "sInfoThousands": ",",
+	            "oPaginate": {
+	                "sFirst": "首页",
+	                "sPrevious": "上页",
+	                "sNext": "下页",
+	                "sLast": "末页"
+	            },
+	            "oAria": {
+	                "sSortAscending": ": 以升序排列此列",
+	                "sSortDescending": ": 以降序排列此列"
+	            }
+	        },
+			"buttons": [  
+	           {  
+	               'extend': 'excelHtml5',  
+	               'text': '导出excel',//定义导出excel按钮的文字  
+	               'exportOptions': {  
+	                   'modifier': {  
+	                       'page': 'current'  
+	                   }  
+	               }  
+	           }  
+	       ]
+		});
+
+	});
+
+
+
+	$(function(){
+
+
+	    $('#industry').change(function(){
+	    	var industry = $("#industry").children('option:selected').val();
+	    	$.ajax({
+				type: 'POST',
+				url: "{:url('index/index/findGradeByIndustryid')}",
+				dataType: 'json',
+				data:{industry_id:industry},
+				success: function(data){
+					if (data.code == 1) {
+						$("#yingshou").html(data.yingshou_html);
+						$("#zichan").html(data.zichan_html);
+						$("#congye").html(data.congye_html);
+					}else{
+
+					}
+				}
+			});	    
+	    });
+
+	    //提交查询
+	    $("#screen").click(function () {
+	    	var industry = $("#industry").children('option:selected').val();
+	    	if (industry == 0) {
+	    		layer.msg('请先选择行业');return;
+	    	}
+	    	var index = layer.load(0, {
+			  shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+	    	var yingshou = $("#yingshou").children('option:selected').val();
+	    	var zichan = $("#zichan").children('option:selected').val();
+	    	var congye = $("#congye").children('option:selected').val();
+	    	$.ajax({
+				type: 'POST',
+				url: "{:url('index/index/findGrade')}",
+				dataType: 'json',
+				data:{industry_id:industry,yingshou:yingshou,zichan:zichan,congye:congye},
+				success: function(data){
+					if (data.code == 1) {
+						layer.close(index);
+						$("#type").text(data.type);
+						$("#policy").text(data.policy);
+					}else{
+
+					}
+				}
+			});	
+	    });
+
+
+
+	    
+	});
+
+
+</script> 
+</body>
+</html>

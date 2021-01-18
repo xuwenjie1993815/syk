@@ -1,0 +1,174 @@
+<aside class="Hui-aside">
+	<div class="menu_dropdown bk_2">
+		{in name="0" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>报错 {if condition="$is_report eq '1'"}  <img src="__STATIC__/h-ui.admin/images/msg.png"> {/if} <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+
+				{in name="2" value="$authority_list_1"}
+				<ul>
+					<li><a data-href="index.php/index/index/uploadErrorZj.html" data-title="报错上传" href="javascript:void(0)">报错上传</a></li>
+				</ul>
+				{/in}
+				{in name="1" value="$authority_list_1"}
+				<ul>
+					<li><a data-href="index.php/index/index/uploadError.html" data-title="报错处理" href="javascript:void(0)">报错处理</a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=2" data-title="龙溪街道" href="javascript:void(0)">龙溪街道 <span {if condition="$reportCount.2 neq '0'"} style="color: red" {/if}>  ({$reportCount.2}) </span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=3" data-title="龙山街道" href="javascript:void(0)">龙山街道 <span {if condition="$reportCount.3 neq '0'"} style="color: red" {/if}>  ({$reportCount.3})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=4" data-title="龙塔街道" href="javascript:void(0)">龙塔街道 <span {if condition="$reportCount.4 neq '0'"} style="color: red" {/if}>({$reportCount.4})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=5" data-title="双凤桥街道" href="javascript:void(0)">双凤桥街道 <span {if condition="$reportCount.5 neq '0'"} style="color: red" {/if}>({$reportCount.5})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=6" data-title="两路街道" href="javascript:void(0)">两路街道 <span {if condition="$reportCount.6 neq '0'"} style="color: red" {/if}>({$reportCount.6})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=7" data-title="王家街道" href="javascript:void(0)">王家街道 <span {if condition="$reportCount.7 neq '0'"} style="color: red" {/if}>({$reportCount.7})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=8" data-title="双龙湖街道" href="javascript:void(0)">双龙湖街道 <span {if condition="$reportCount.8 neq '0'"} style="color: red" {/if}>({$reportCount.8})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=9" data-title="仙桃街道" href="javascript:void(0)">仙桃街道 <span {if condition="$reportCount.9 neq '0'"} style="color: red" {/if}>({$reportCount.9})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=10" data-title="回兴街道" href="javascript:void(0)">回兴街道 <span {if condition="$reportCount.10 neq '0'"} style="color: red" {/if}>({$reportCount.10})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=11" data-title="宝圣湖街道" href="javascript:void(0)">宝圣湖街道 <span {if condition="$reportCount.11 neq '0'"} style="color: red" {/if}>({$reportCount.11})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=12" data-title="悦来街道" href="javascript:void(0)">悦来街道 <span {if condition="$reportCount.12 neq '0'"} style="color: red" {/if}>({$reportCount.12})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=13" data-title="石船镇" href="javascript:void(0)">石船镇 <span {if condition="$reportCount.13 neq '0'"} style="color: red" {/if}>({$reportCount.14})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=14" data-title="洛碛镇" href="javascript:void(0)">洛碛镇 <span {if condition="$reportCount.14 neq '0'"} style="color: red" {/if}>({$reportCount.14})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=15" data-title="龙兴镇" href="javascript:void(0)">龙兴镇 <span {if condition="$reportCount.15 neq '0'"} style="color: red" {/if}>({$reportCount.15})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=16" data-title="大湾镇" href="javascript:void(0)">大湾镇 <span {if condition="$reportCount.16 neq '0'"} style="color: red" {/if}>({$reportCount.16})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=17" data-title="古路镇" href="javascript:void(0)">古路镇 <span {if condition="$reportCount.17 neq '0'"} style="color: red" {/if}>({$reportCount.17})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=18" data-title="统景镇" href="javascript:void(0)">统景镇 <span {if condition="$reportCount.18 neq '0'"} style="color: red" {/if}>({$reportCount.18})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=19" data-title="大盛镇" href="javascript:void(0)">大盛镇 <span {if condition="$reportCount.19 neq '0'"} style="color: red" {/if}>({$reportCount.19})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=20" data-title="木耳镇" href="javascript:void(0)">木耳镇 <span {if condition="$reportCount.20 neq '0'"} style="color: red" {/if}>({$reportCount.20})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=21" data-title="兴隆镇" href="javascript:void(0)">兴隆镇 <span {if condition="$reportCount.21 neq '0'"} style="color: red" {/if}>({$reportCount.21})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=22" data-title="茨竹镇" href="javascript:void(0)">茨竹镇 <span {if condition="$reportCount.22 neq '0'"} style="color: red" {/if}>({$reportCount.22})</span></a></li>
+					<li><a data-href="index.php/index/index/uploadError.html?street_id=23" data-title="玉峰山镇" href="javascript:void(0)">玉峰山镇 <span {if condition="$reportCount.23 neq '0'"} style="color: red" {/if}>({$reportCount.23})</span></a></li>
+				</ul>
+				{/in}
+			</dd>
+		</dl>
+		{/in}
+		{in name="5" value="$authority_list_0"}
+		<dl id="menu-admin">
+			<dt><i class="Hui-iconfont">&#xe62d;</i>管理员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="6" value="$authority_list_1"}
+					<li><a data-href="index.php/index/permissions/role.html" data-title="角色管理" href="javascript:void(0)">角色管理</a></li>
+					{/in}
+					{in name="9" value="$authority_list_1"}
+					<li><a data-href="index.php/index/permissions/authority.html" data-title="权限管理" href="javascript:void(0)">权限管理</a></li>
+					{/in}
+					{in name="11" value="$authority_list_1"}
+					<li><a data-href="index.php/index/permissions/user_list.html" data-title="管理员列表" href="javascript:void(0)">管理员列表</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+		{in name="14" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>消息 {if condition="$is_announcement eq '1'"}  <img src="__STATIC__/h-ui.admin/images/msg.png"> {/if} <i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="15" value="$authority_list_1"}
+					<li><a data-href="index.php/index/announcement/index.html" data-title="消息通知" href="javascript:void(0)">消息通知</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+		
+		{in name="18" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>中小企业识别<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					<li><a data-href="index.php/index/index/identifyEnterprise.html" data-title="中小企业识别" href="javascript:void(0)">中小企业识别</a></li>
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+		{in name="19" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>公告<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="20" value="$authority_list_1"}
+					<li><a data-href="index.php/index/index/notice.html" data-title="公告管理" href="javascript:void(0)">公告管理</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+		{in name="26" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>户口性质<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="27" value="$authority_list_1"}
+					<li><a data-href="index.php/index/index/registered.html?type={$adminInfo.type}" data-title="户口性质检验" href="javascript:void(0)">户口性质检验</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+		
+		{in name="32" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>失业金<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="33" value="$authority_list_1"}
+					<li><a data-href="index.php/index/syj/syj3.html" data-title="失业金申领管理" href="javascript:void(0)">失业金报表上传</a></li>
+					{/in}
+					{in name="37" value="$authority_list_1"}
+					{if condition="$res_fixed eq 1 OR $res_fixed eq 0"}
+					<li><a data-href="index.php/index/syj/syj1.html" data-title="生成初一表" href="javascript:void(0)">初一表</a></li>
+					{/if}
+					{/in}
+					{in name="38" value="$authority_list_1"}
+					{if condition="$res_fixed eq 2"}
+					<li><a data-href="index.php/index/syj/syj2.html" data-title="生成初二表" href="javascript:void(0)">初二表</a></li>
+					{/if}
+					{/in}
+					{in name="39" value="$authority_list_1"}
+					{if condition="$res_fixed eq 3"}
+					<li><a data-href="index.php/index/syj/syj3.html" data-title="生成初三表" href="javascript:void(0)">初三表</a></li>
+					{/if}
+					{/in}
+					{in name="40" value="$authority_list_1"}
+					{if condition="$res_fixed eq 4"}
+					<li><a data-href="index.php/index/syj/syj4.html" data-title="生成定表" href="javascript:void(0)">生成定表</a></li>
+					{/if}
+					{/in}
+
+					{in name="41" value="$authority_list_1"}
+					{if condition="$res_fixed eq 5"}
+					<li><a data-href="index.php/index/syj/syj5.html" data-title="定表数据" href="javascript:void(0)">定表数据</a></li>
+					{/if}
+					{/in}
+
+					{in name="42" value="$authority_list_1"}
+					<li><a data-href="index.php/index/file/syj_file.html" data-title="文件管理" href="javascript:void(0)">文件管理</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+		{in name="43" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>人员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="44" value="$authority_list_1"}
+					<li><a data-href="index.php/index/Syj/check_user_data.html" data-title="人员信息查询" href="javascript:void(0)">人员信息查询</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+
+
+
+		
+	</div>
+</aside>
+<div class="dislpayArrow hidden-xs"><a class="pngfix" href="javascript:void(0);" onClick="displaynavbar(this)"></a></div>

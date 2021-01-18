@@ -1,0 +1,298 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<link href="__LIB__/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+
+<link rel="stylesheet" href="__LIB__/viewer/css/viewer.min.css">
+
+
+<title>用户查看</title>
+</head>
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="margin-left:5%; color:#fff">
+		<dt>
+			<span class="f-18">{switch name="$report_info.type" }
+							    {case value="1"}停发失业金和医保{/case}
+							    {case value="2"}未接收缴费历史确认{/case}
+							    {case value="3"}失业人员账号维护{/case}
+							    {case value="4"}户籍地报错{/case}
+							    {case value="5"}享受月份报错{/case}
+							    {case value="6"}系统问题{/case}
+							    {case value="7"}信息查询{/case}
+							    {case value="8"}清退{/case}
+							    {case value="9"}其他{/case}
+							    {default /}
+							{/switch}</span>
+			<span class="pl-10 f-12">{$report_info.upload_time}</span>
+		</dt>
+		<dd class="pt-10 f-12" style="margin-left:0">{$report_info.streetName}</dd>
+	</dl>
+</div>
+<div class="pd-20">
+	<table class="table">
+		<tbody>
+			{if condition="$report_info['name'] != ''"}
+			<tr>
+				<th class="text-r">姓名：</th>
+				<td>{$report_info.name}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['six'] != ''"}
+			<tr>
+				<th class="text-r" width="80">性别：</th>
+				<td>{switch name="$report_info.six" }
+							    {case value="1"}男{/case}
+							    {case value="2"}女{/case}
+							    {default /}
+							{/switch}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['pid'] != ''"}
+			<tr>
+				<th class="text-r">身份证：</th>
+				<td> <a id="pid_e" onclick="syj_fixed_s1_edit('pid',{$report_info.pid},'syj_fixed_s1_edit?pid={$report_info.pid}&type=pid')" data="{$report_info.pid}" style="border-bottom:1px solid #00F;"> {$report_info.pid} </a> <span style="color: red">(点击此处可修改人员信息)</span></td>
+			</tr>
+			{/if}
+			{if condition="$report_info['content'] != ''"}
+			<tr>
+				<th class="text-r">备注：</th>
+				<td>{$report_info.content}</td>
+			</tr>
+			{/if}
+
+			{if condition="$report_info['enclosure'] != '' AND $report_info['enclosure'] != []"}
+			<tr>
+				<th class="text-r">附件：</th>
+				<td>
+					<ul class="cl portfolio-area" id="jqhtml">
+						<!-- {volist name="$report_info.enclosure" id="vo1"}
+						<li class="item">
+							<div class="portfoliobox">
+								<div class="picbox">
+									<a href="__LIB__/webuploader/0.1.5/server/upload/{$vo1}" data-lightbox="gallery" data-title="{$vo1}">
+										<img src="__LIB__/webuploader/0.1.5/server/upload/{$vo1}">
+									</a>
+								</div>
+							</div>
+						</li>
+						{/volist} -->
+
+						{volist name="$report_info.enclosure" id="vo1"}
+							<li><img src="__LIB__/webuploader/0.1.5/server/upload/{$vo1}" alt="{$vo1}" style="width: 100px;height: 100px"></li>
+						{/volist}
+					</ul>
+				</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['reason'] != ''"}
+			<tr>
+				<th class="text-r">原因：</th>
+				<td>{switch name="$report_info.reason" }
+							    {case value="1"}退休{/case}
+							    {case value="2"}死亡{/case}
+							    {case value="3"}就业{/case}
+							    {case value="4"}创业{/case}
+							    {default /}
+							{/switch}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['socialSecurity'] != ''"}
+			<tr>
+				<th class="text-r">个人社保号：</th>
+				<td> <a id="socialSecurity_e" onclick="syj_fixed_s1_edit('socialSecurity',{$report_info.socialSecurity},'syj_fixed_s1_edit?socialSecurity={$report_info.socialSecurity}&type=socialSecurity')" data="{$report_info.socialSecurity}" style="border-bottom:1px solid #00F;"> {$report_info.socialSecurity} </a> <span style="color: red">(点击此处可修改人员信息)</span></td>
+			</tr>
+			{/if}
+			{if condition="$report_info['bank'] != ''"}
+			<tr>
+				<th class="text-r">银行：</th>
+				<td>{$report_info.bank}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['bankNumber'] != ''"}
+			<tr>
+				<th class="text-r">银行卡号：</th>
+				<td>{$report_info.bankNumber}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['openBank'] != ''"}
+			<tr>
+				<th class="text-r">开户行：</th>
+				<td>{$report_info.openBank}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['belongStreet'] != '' AND $report_info['belongStreet'] != 0"}
+			<tr>
+				<th class="text-r">所属街道：</th>
+				<td>{$report_info.belongStreet}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['qjtzyf'] != ''"}
+			<tr>
+				<th class="text-r">区级通知月份：</th>
+				<td>{$report_info.qjtzyf}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['zjstyf'] != ''"}
+			<tr>
+				<th class="text-r">镇街系统月份：</th>
+				<td>{$report_info.zjstyf}</td>
+			</tr>
+			{/if}
+			{if condition="$report_info['price'] != '0.01' && $report_info['price'] != '0.00'"}
+			<tr>
+				<th class="text-r">金额：</th>
+				<td>{$report_info.price}</td>
+			</tr>
+			{/if}
+
+			<tr>
+				<th class="text-r">
+					{switch name="$report_info.state"}
+					    {case value="1"}
+					    	<input class="btn btn-primary radius" id="handle" data="{$report_info.id}" onclick="handle({$report_info.id})" type="button" value="处理">
+					    {/case}
+					    {case value="2"}
+						    <span class="label label-success radius" style="margin-left: 65%">已处理</span>
+					    {/case}
+					    {default /}
+					    <div class="label label-success radius" style="margin-left: 65%">报错已解决或已删除</div>
+					   	
+					{/switch}
+					
+				</th>
+			</tr>
+		</tbody>
+
+	</table>
+
+	
+</div>
+{include file="../application/index/view/Public/_footer.html"/}
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__LIB__/lightbox2/2.8.1/js/lightbox.min.js"></script>
+
+<script src="__LIB__/viewer/js/viewer.min.js"></script>
+
+<script type="text/javascript">
+
+
+//处理
+function handle(report_id) {
+	// var report_id = report_id;
+	layer.confirm('需要备注吗?', {
+	  	btn: ['需要','确认已完成'] //按钮
+	}, function(){
+		layer.prompt({title: '备注', formType: 2}, function(text, index){
+			layer.close(index);
+			var index_r = layer.load(0, {
+				shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+			$.ajax({
+				type: 'POST',
+				url: "{:url('index/index/handleError')}",
+				dataType: 'json',
+				data:{report_id:report_id,admin_return:text,state:2},
+				success: function(data){
+					if (data.code == 1) {
+						layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+							parent.location.reload();
+		                    // window.location.href = document.location;
+		                });
+					}else{
+						layer.close(index_r);
+						layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+					}
+				},
+				error:function(data) {
+
+					layer.close(index_r);
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+
+			});	
+		});
+	}, function(){
+		var index_r = layer.load(0, {
+			shade: [0.1,'#fff'] //0.1透明度的白色背景
+		});
+		$.ajax({
+			type: 'POST',
+			url: "{:url('index/index/handleError')}",
+			dataType: 'json',
+			data:{report_id:report_id,admin_return:'',state:2},
+			success: function(data){
+				if (data.code == 1) {
+					layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+						parent.location.reload();
+	                    // window.location.href = document.location;
+	                });
+	                
+				}else{
+					layer.close(index_r);
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+			},
+			error:function(data) {
+				layer.close(index_r);
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});
+	});
+}
+
+//编辑用户
+function syj_fixed_s1_edit(type,data,url){
+	var data = $("#"+type+"_e").attr('data');
+
+	//先检查是否有该用户数据
+	$.ajax({
+		type: 'POST',
+		dataType: 'json',
+		url:'{:url('index/Syj/check_user')}',
+		data:{data:data,type:type},
+		success: function(data){
+            if(data.code==1){
+            	var mobile_flag = isMobile();
+				if(mobile_flag){
+					width=document.body.clientWidth+"px";
+					layer_show('编辑人员信息',url,width);
+				}else{
+					layer_show('编辑人员信息',url);
+				}
+            }else{
+				layer.msg('暂无该人员信息', {icon: 2,time: 10000});
+            }
+		},
+		error:function(data) {
+			layer.msg('操作失败,请稍后重试', {icon: 2,time: 800});
+		}
+	});
+	
+}
+
+function isMobile() {
+    var userAgentInfo = navigator.userAgent;
+
+    var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+
+    var mobile_flag = false;
+
+    //根据userAgent判断是否是手机
+    for (var v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            mobile_flag = true;
+            break;
+        }
+    }
+     var screen_width = window.screen.width;
+     var screen_height = window.screen.height;   
+
+     //根据屏幕分辨率判断是否是手机
+     if(screen_width < 500 && screen_height < 800){
+         mobile_flag = true;
+     }
+
+     return mobile_flag;
+}
+</script>

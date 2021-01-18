@@ -1,0 +1,87 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<title>添加管理员</title>
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>用户名：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="text" class="input-text" value="" id="username" name="username" placeholder="唯一登陆凭证">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>初始密码：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off" value="" placeholder="密码" id="password" name="password">
+		</div>
+	</div>
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>确认密码：</label>
+		<div class="formControls col-xs-8 col-sm-9">
+			<input type="password" class="input-text" autocomplete="off"  placeholder="确认新密码" id="password2" name="password2">
+		</div>
+	</div>
+	
+	
+	<div class="row cl">
+		<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>角色：</label>
+		<div class="formControls col-xs-8 col-sm-9"> <span class="select-box" style="width:150px;">
+			<select class="select" id="selector" size="1">
+				{volist name="role_list" id="vo"}
+				<option value="{$vo.id}">{$vo.role}</option>
+				{/volist}
+			</select>
+			</span> </div>
+	</div>
+	<div class="row cl">
+		<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+			<button class="btn btn-primary" type="button" onclick="sub()">提交</button>
+		</div>
+	</div>
+	</form>
+</article>
+{include file="../application/index/view/Public/_footer.html"/}
+<script type="text/javascript">
+	function sub() {
+		var username = $("#username").val();
+		var password = $("#password").val();
+		var password2 = $("#password2").val();
+		var role_id = $("#selector").val();
+		if (!username) {
+			layer.msg('用户名不能为空', {icon: 2,time: 800});return;
+		}
+		if (!password) {
+			layer.msg('密码不能为空', {icon: 2,time: 800});return;
+		}
+		if (!password2) {
+			layer.msg('确认密码不能为空', {icon: 2,time: 800});return;
+		}
+		if (password2 != password) {
+			layer.msg('两次密码不一致', {icon: 2,time: 800});return;
+		}
+		if (password.length < 6 || password2 < 6) {
+			layer.msg('密码应为6位数以上', {icon: 2,time: 800});return;
+		}
+	    $.ajax({
+			type: 'POST',
+			dataType: 'json',
+			data:{username:username,password:password,role_id:role_id},
+			success: function(data){
+	            if(data.code==1){
+	            	layer.msg("操作成功", {icon: 1,time: 800 }, function () {
+	            		// layer.close(index_r);
+	            		parent.location.reload();
+	                    // window.location.href = document.location;
+	                });
+	            }else{
+					layer.msg(data.msg, {icon: 2,time: 800});
+
+	            }
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+	}
+</script>

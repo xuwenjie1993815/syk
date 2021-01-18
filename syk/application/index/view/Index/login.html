@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<title>登录</title>
+<link rel="stylesheet" type="text/css" href="__STATIC__/login/index.css">
+<style type="text/css">
+#sub:hover{
+	transform: scale(1.1);/*鼠标放上之后元素变成1.4倍大小*/
+}
+</style>
+</head>
+
+<body>
+
+<img class="bgone" src="__STATIC__/login/1.jpg">
+<img class="pic" src="__STATIC__/login/a.png">
+
+<div class="table">
+	<div class="wel">管理后台登录</div>
+	<div class="user">
+		<div id="yonghu" style=""><img src="__STATIC__/login/yhm.png"></div>
+		<input type="text" name="" id="username" placeholder="用户名">
+	</div>			
+	<div class="password">
+		<div id="yonghu"><img src="__STATIC__/login/mm.png"></div>
+		<input type="password" name="密码" id="password" placeholder="●●●●●●">
+	</div>
+	<input class="btn" style="border-radius:30px;cursor: pointer;transition: all 0.6s;" type="button" id="sub" name="登录" value="登录">
+</div>
+
+
+</body></html>
+{include file="../application/index/view/Public/_footer.html"/}<!-- 
+<script type="text/javascript" src="__STATIC__/h-ui__LIB__/layer/2.4/layer.js"></script>
+<script type="text/javascript" src="__STATIC__/h-ui__LIB__/jquery/1.9.1/jquery.min.js"></script> -->
+<script type="text/javascript">
+	$(document).keyup(function(event){
+	  if(event.keyCode ==13){
+	    $("#sub").trigger("click");
+	  }
+	});
+	$("#sub").click(function () {
+		var index = layer.load(1, {time: 10*1000}); //0代表加载的风格，支持0-2
+		$.ajax({
+			type:"POST",
+			dataType:"json",
+			url:"{:url('Index/login/login')}",
+			data:{username:$("#username").val(),password:$("#password").val()},
+			success:function(data){
+			  if (data.code == 1) {
+			  	layer.close(index);
+			  	layer.msg(data.msg, {time: 1000, icon:6});
+				location.href='http://'+window.location.host+'/syk/public';
+			  }else{
+			  	layer.msg(data.msg, {time: 1000, icon:5});
+			  	layer.close(index);
+			  	return;
+			  }
+			}
+		});
+	});
+
+</script>

@@ -1,0 +1,79 @@
+{include file="../application/index/view/Public/_meta.html"/}
+
+<title>权限管理</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 权限管理 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="7">权限节点</th>
+			</tr>
+			<tr class="text-c">
+				<th>ID</th>
+				<th>权限名称</th>
+				<th>子节点列表</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name="list" id="vo"}
+			<tr class="text-c">
+				<td>{$vo.id}</td>
+				<td>{$vo.describe}</td>
+				<td><a id="check_authority_son{$vo.id}" onclick="check_authority_son({$vo.id})" data="{$vo.describe}">查看</a></td>
+				<td><a title="编辑" href="javascript:;" onclick="admin_permission_edit('角色编辑','admin-permission-add.html','1','','310')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_permission_del(this,'1')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+			</tr>
+			{/volist}
+		</tbody>
+	</table>
+</div>
+
+{include file="../application/index/view/Public/_footer.html"/}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__LIB__/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript">
+//查看角色拥有的权限用户
+function check_authority_son(id) {
+	var mobile_flag = isMobile();
+		if(mobile_flag){
+			width=document.body.clientWidth+"px";
+			layer_show($("#check_authority_son"+id).attr('data'),'authority_son_list.html?id='+id,width);
+		}else{
+			layer_show($("#check_authority_son"+id).attr('data'),'authority_son_list.html?id='+id);
+		}
+}
+
+function isMobile() {
+    var userAgentInfo = navigator.userAgent;
+
+    var mobileAgents = [ "Android", "iPhone", "SymbianOS", "Windows Phone", "iPad","iPod"];
+
+    var mobile_flag = false;
+
+    //根据userAgent判断是否是手机
+    for (var v = 0; v < mobileAgents.length; v++) {
+        if (userAgentInfo.indexOf(mobileAgents[v]) > 0) {
+            mobile_flag = true;
+            break;
+        }
+    }
+     var screen_width = window.screen.width;
+     var screen_height = window.screen.height;   
+
+     //根据屏幕分辨率判断是否是手机
+     if(screen_width < 500 && screen_height < 800){
+         mobile_flag = true;
+     }
+
+     return mobile_flag;
+}
+
+</script>
+</body>
+</html>

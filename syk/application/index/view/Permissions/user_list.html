@@ -1,0 +1,161 @@
+{include file="../application/index/view/Public/_meta.html"/}
+
+<title>管理员列表</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 管理员管理 <span class="c-gray en">&gt;</span> 管理员列表 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+	
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> <span class="l"> <a href="javascript:;" onclick="user_add()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i> 添加管理员</a></span>  </div>
+	<table class="table table-border table-bordered table-bg">
+		<thead>
+			<tr>
+				<th scope="col" colspan="9">员工列表</th>
+			</tr>
+			<tr class="text-c">
+				<th>ID</th>
+				<th>登录名</th>
+				<th>角色</th>
+				<th>加入时间</th>
+				<th>是否已启用</th>
+				<th>操作</th>
+			</tr>
+		</thead>
+		<tbody>
+			{volist name="user_list" id="vo"}
+				<tr class="text-c">
+					<td>{$vo.id}</td>
+					<td>{$vo.username}</td>
+					<td>{$vo.role}</td>
+					<td>{$vo.create_at}</td>
+					<td class="td-status">
+						{switch name="$vo.state" }
+						    {case value="0"}
+							    <span class="label radius">已停用</span>
+							{/case}
+						    {case value="1"}
+						    	<span class="label label-success radius">已启用</span>
+						    {/case}
+						{/switch}
+					</td>
+					<td class="td-manage">
+						{switch name="$vo.state" }
+						    {case value="0"}
+							    <a style="text-decoration:none" onClick="user_start(this,{$vo.id})" href="javascript:;" title="启用">
+									<i class="Hui-iconfont">&#xe615;</i>
+								</a>
+							{/case}
+						    {case value="1"}
+						    	<a style="text-decoration:none" onClick="user_stop(this,{$vo.id})" href="javascript:;" title="停用">
+						    		<i class="Hui-iconfont">&#xe631;</i>
+						    	</a>
+						    {/case}
+						{/switch}
+						
+						<a title="删除" href="javascript:;" onclick="user_del(this,{$vo.id})" class="ml-5" style="text-decoration:none">
+						 	<i class="Hui-iconfont">&#xe6e2;</i>
+						</a>
+					</td>
+				</tr>
+			{/volist}
+		</tbody>
+	</table>
+</div>
+
+{include file="../application/index/view/Public/_footer.html"/}
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__LIB__/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript">
+//上传报错
+function user_add() {
+	var index = layer.open({
+		type: 2,
+		title: '新增管理员',
+		content: "{:url('index/permissions/create_user')}",
+		area: ['60%', '80%'],
+	});
+}
+
+function user_stop(obj,id){
+	layer.confirm('确认要停用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.ajax({
+			type: 'POST',
+			url: "{:url('index/permissions/user_state')}",
+			dataType: 'json',
+			data:{id:id,'state':'0'},
+			success: function(data){
+				if (data.code == 1) {
+					layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+	                    window.location.href = document.location;
+	                });
+				}else{
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+		
+	});
+}
+
+function user_start(obj,id){
+	layer.confirm('确认要启用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.ajax({
+			type: 'POST',
+			url: "{:url('index/permissions/user_state')}",
+			dataType: 'json',
+			data:{id:id,'state':'1'},
+			success: function(data){
+				if (data.code == 1) {
+					layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+	                    window.location.href = document.location;
+	                });
+				}else{
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+
+	});
+}
+
+
+function user_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.ajax({
+			type: 'POST',
+			url: "{:url('index/permissions/user_state')}",
+			dataType: 'json',
+			data:{id:id,'state':'3'},
+			success: function(data){
+				if (data.code == 1) {
+					layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+	                    window.location.href = document.location;
+	                });
+				}else{
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+
+	});
+}
+
+</script>
+</body>
+</html>

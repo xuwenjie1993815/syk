@@ -1,0 +1,310 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<link rel="stylesheet" href="__LIB__/DataTables-1.10.21/media/buttons/buttons.dataTables.min.css"/>
+
+<link href="__LIB__/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<title>户口性质检验</title>
+</head>
+<body>
+<nav class="breadcrumb"><i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span> 户口性质检验 <span class="c-gray en">&gt;</span> 户口性质检验 <a class="btn btn-success radius r" style="line-height:1.6em;margin-top:3px" href="javascript:location.replace(location.href);" title="刷新" ><i class="Hui-iconfont">&#xe68f;</i></a></nav>
+<div class="page-container">
+
+	<!-- <div class="text-c"> 
+		状态：
+		<span class="select-box" style="width:150px">
+			<select class="select" id="state" size="1">
+				<option value="0" selected>请选择</option>
+				<option value="1" {if condition="$where.state eq 1"} selected {/if}>未处理</option>
+				<option value="2" {if condition="$where.state eq 2"} selected {/if}>已处理</option>
+			</select>
+		</span>
+
+		日期范围：
+		<input type="text" onfocus="WdatePicker()" id="datemin" class="input-text Wdate" style="width:120px;" value="{$where.datemin}">
+		-
+		<input type="text" onfocus="WdatePicker()" id="datemax" class="input-text Wdate" style="width:120px;" value="{$where.datemax}">
+		
+		<button type="submit" class="btn btn-success radius" id="check" name=""><i class="Hui-iconfont">&#xe665;</i> 搜索</button>
+	</div> -->
+	{if condition="$adminInfo.type eq 2"}
+	<div class="cl pd-5 bg-1 bk-gray mt-20"> 
+		<span ><a href="javascript:;" onclick="upload()" class="btn btn-primary radius"><i class="Hui-iconfont">&#xe647;</i> 上传</a> </span> 
+
+		<!-- <span ><a href="javascript:;" onclick="batch('del')" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe609;</i> 批量删除</a> </span>  -->
+	</div>
+	{/if}
+	<div class="mt-20">
+		<table class="table table-border table-bordered table-hover table-bg table-sort">
+			<thead>
+				<tr class="text-c">
+					<!-- <th ><input type="checkbox" name="" value=""></th> -->
+					<th>姓名</th>
+					<th>性别</th>
+					<th>身份证</th>
+					<th>附件 </th>
+					<th>上传者 </th>
+					<th>上传时间 </th>
+					<th>操作 </th>
+				</tr>
+			</thead>
+			<tbody>
+				{volist name="list" id="vo"}
+					<tr class="text-c">
+						<!-- <td><input type="checkbox" value="{$vo.id}" name="registered_list"></td> -->
+						<td>
+							{$vo.name}
+						</td>
+						<td>
+							{switch name="$vo.six" }
+							    {case value="1"}男{/case}
+							    {case value="2"}女{/case}
+							    {default /}
+							{/switch}
+						</td>
+						<td>
+							{$vo.pid}
+						</td>
+						<td>
+							{volist name="$vo.enclosure" id="vo1"}
+							<a style="color: blue;" href="__LIB__/webuploader/0.1.5/server/upload/{$vo1}" download="">{$vo1}</a> &nbsp;
+							{/volist}
+						</td>
+						<td>
+							{$vo.username}
+						</td>
+						<td>
+							{$vo.upload_time}
+						</td>
+						<td class="td-manage">
+							<a title="删除" href="javascript:;" onclick="member_del(this,{$vo.id})" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i>
+							</a>
+						</td>
+					</tr>
+				{/volist}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+{include file="../application/index/view/Public/_footer.html"/}  
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/js/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/dataTables.buttons.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/jszip.min.js"></script> 
+<script type="text/javascript" src="__LIB__/DataTables-1.10.21/media/buttons/buttons.html5.min.js"></script> 
+
+<!--请在下方写此页面业务相关的脚本-->
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__LIB__/lightbox2/2.8.1/js/lightbox.min.js"></script>
+<script type="text/javascript">
+
+
+
+$(function(){
+	$(".portfolio-area li").Huihover();
+	$('.table-sort').dataTable({
+		"aaSorting": [[ 5, "desc" ]],//默认第几个排序
+		"bStateSave": false,//状态保存
+		"aoColumnDefs": [
+		  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
+		  {"orderable":false,"aTargets":[0,1,2,3,4,6]}// 制定列不参与排序
+		],
+		"autoWidth":true,
+		dom: 'Bfrtip',
+		language: {
+            "sProcessing": "处理中...",
+            "sLengthMenu": "显示 _MENU_ 项",
+            "sZeroRecords": "没有匹配结果",
+            "sInfo": "显示第 _START_ 至 _END_ 项，共 _TOTAL_ 项",
+            "sInfoEmpty": "显示第 0 至 0 项结果，共 0 项",
+            "sInfoFiltered": "(由 _MAX_ 项结果过滤)",
+            "sInfoPostFix": "",
+            "sSearch": "搜索:",
+            "sUrl": "",
+            "sEmptyTable": "表中数据为空",
+            "sLoadingRecords": "载入中...",
+            "sInfoThousands": ",",
+            "oPaginate": {
+                "sFirst": "首页",
+                "sPrevious": "上页",
+                "sNext": "下页",
+                "sLast": "末页"
+            },
+            "oAria": {
+                "sSortAscending": ": 以升序排列此列",
+                "sSortDescending": ": 以降序排列此列"
+            }
+        },
+		"buttons": [  
+           {  
+               'extend': 'excelHtml5',  
+               'text': '导出excel',//定义导出excel按钮的文字  
+               'exportOptions': {  
+                   'modifier': {  
+                       'page': 'current'  
+                   }  
+               }  
+           }  
+       ]
+	});
+
+});
+
+//上传
+function upload() {
+	var index = layer.open({
+		type: 2,
+		title: '户口性质检验上传',
+		content: "{:url('index/Index/uploadRegistered')}",
+	});
+	layer.full(index);
+}
+
+
+
+//筛选
+$("#check").click(function () {
+	//镇街筛选
+	var admin_id = $("#industry").find("option:selected").attr("value");
+	//状态筛选
+	var state = $("#state").find("option:selected").attr("value");
+	//日期
+	var datemin = $("#datemin").val();
+	var datemax = $("#datemax").val();
+
+	window.location.href = "http://"+window.location.host+"/syk/public/index.php/index/index/uploadError.html?admin_id="+admin_id+"&state="+state+"&datemin="+datemin+"&datemax="+datemax;
+
+});
+
+//批量处理
+function batch(type) {
+	var str = "";
+    $("input[name='report_list']:checked").each(function (index, item) {
+        if ($("input[name='report_list']:checked").length-1==index) {
+            str += $(this).val();
+        } else {
+            str += $(this).val() + ",";
+        }  
+    });
+	if (str == '') {
+		layer.msg('请先选择要操作的对象', {icon: 2,time: 800}); return;
+	}
+	if (type == 'handle') {
+	    layer.confirm('需要备注吗?', {
+		  	btn: ['需要','确认已完成'] //按钮
+		}, function(){
+			layer.prompt({title: '备注', formType: 2}, function(text, index){
+				layer.close(index);
+				var index_r = layer.load(0, {
+				  shade: [0.1,'#fff'] //0.1透明度的白色背景
+				});
+				$.ajax({
+					type: 'POST',
+					url: "{:url('index/index/handleErrorArr')}",
+					dataType: 'json',
+					data:{report_id_arr:str,admin_return:text,state:2},
+					success: function(data){
+						if (data.code == 1) {
+							layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+			                    window.location.href = document.location;
+			                });
+						}else{
+							layer.close(index_r);
+							layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+						}
+					},
+					error:function(data) {
+						layer.close(index_r);
+						layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+					}
+
+				});	
+			});
+		}, function(){
+			var index_r = layer.load(0, {
+				shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+			$.ajax({
+				type: 'POST',
+				url: "{:url('index/index/handleErrorArr')}",
+				dataType: 'json',
+				data:{report_id_arr:str,admin_return:'',state:2},
+				success: function(data){
+					if (data.code == 1) {
+						layer.msg("处理成功", {icon: 1,time: 800 }, function () {
+		                    window.location.href = document.location;
+		                });
+					}else{
+						layer.close(index_r);
+						layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+					}
+				},
+				error:function(data) {
+					layer.close(index_r);
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				}
+			});
+		});
+	}
+
+	if (type == 'del') {
+
+		layer.confirm('确认要删除吗？',function(index){
+			var index_r = layer.load(0, {
+				shade: [0.1,'#fff'] //0.1透明度的白色背景
+			});
+			$.ajax({
+				type: 'POST',
+				url: "{:url('index/index/handleErrorArr')}",
+				dataType: 'json',
+				data:{report_id_arr:str,admin_return:'',state:0},
+				success: function(data){
+					layer.msg("已删除!", {icon: 1,time: 800 }, function () {
+		                    window.location.href = document.location;
+		                });
+				},
+				error:function(data) {
+					layer.close(index_r);
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+				},
+			});		
+		});
+	}
+
+}
+
+
+
+
+/*删除*/
+function member_del(obj,id){
+	layer.confirm('确认要删除吗？',function(index){
+		var index_r = layer.load(0, {
+			shade: [0.1,'#fff'] //0.1透明度的白色背景
+		});
+		$.ajax({
+			type: 'POST',
+			url: '{:url('index/index/saveRegistered')}',
+			dataType: 'json',
+			data:{id:id,state:0},
+			success: function(data){
+				layer.close(index_r);
+				$(obj).parents("tr").remove();
+				layer.msg('已删除!',{icon:1,time:1000});
+			},
+			error:function(data) {
+				layer.close(index_r);
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			},
+		});		
+	});
+}
+
+//批量修改
+
+
+
+
+</script>
+</body>
+</html>

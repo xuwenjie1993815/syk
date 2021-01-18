@@ -1,0 +1,34 @@
+{include file="../application/index/view/Public/_meta.html"/}
+<link href="__LIB__/lightbox2/2.8.1/css/lightbox.css" rel="stylesheet" type="text/css" >
+<title>用户查看</title>
+</head>
+<body>
+<div class="cl pd-20" style=" background-color:#5bacb6">
+	<dl style="margin-left:5%; color:#fff">
+		<dt>
+			<span class="f-18">{$announcement_info.title}</span>
+			<span class="pl-10 f-12">{$announcement_info.publish_time}</span>
+		</dt>
+	</dl>
+</div>
+<div class="pd-20">
+
+
+	<table class="table table-border table-bg table-bordered">
+	  <thead>
+	    <tr><th width="20%">内容</th><th>{$announcement_info.content}</th></tr>
+	    {if condition="$announcement_info['enclosure'] != '' AND $announcement_info['enclosure'] != []"}
+	    	{volist name="$announcement_info.enclosure" id="vo1"}
+	    	<tr><th width="20%">附件</th><th><a style="color: blue;" href="__LIB__/webuploader/0.1.5/server/upload/{$vo1}" download="">{$vo1}</a></th></tr>
+			{/volist}
+		{/if}
+	  </thead>
+	 
+	</table>
+
+</div>
+{include file="../application/index/view/Public/_footer.html"/}
+<script type="text/javascript" src="__LIB__/My97DatePicker/4.8/WdatePicker.js"></script> 
+<script type="text/javascript" src="__LIB__/datatables/1.10.0/jquery.dataTables.min.js"></script> 
+<script type="text/javascript" src="__LIB__/laypage/1.2/laypage.js"></script>
+<script type="text/javascript" src="__LIB__/lightbox2/2.8.1/js/lightbox.min.js"></script>

@@ -1,0 +1,113 @@
+{include file="../application/index/view/Public/_meta.html"/}
+</head>
+<body>
+<article class="page-container">
+	<form class="form form-horizontal" id="form-admin-add">
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>个人社保号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.socialSecurity}" placeholder="" id="socialSecurity" name="socialSecurity">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>姓名：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.name}" placeholder="" id="name" name="name">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>身份证号码：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.pid}" placeholder="" id="pid" name="pid">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>银行帐号：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.bankAccount}" placeholder="" id="bankAccount" name="bankAccount">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>具体到支行：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.bankBranch}" placeholder="" id="bankBranch" name="bankBranch">
+			</div>
+		</div>
+		
+		
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>基本保险金：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.benefits}" placeholder="" id="benefits" name="benefits">
+			</div>
+		</div>
+		
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>应发月数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.monthNumber}" placeholder="" id="monthNumber" name="monthNumber">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>剩余月数：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.surplusMonthNumber}" placeholder="" id="surplusMonthNumber" name="surplusMonthNumber">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>联系电话：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.tel}" placeholder="" id="tel" name="tel">
+			</div>
+		</div>
+		<div class="row cl">
+			<label class="form-label col-xs-4 col-sm-3"><span class="c-red">*</span>镇街名称：</label>
+			<div class="formControls col-xs-8 col-sm-9">
+				<input type="text" class="input-text" value="{$info.zj_name}" placeholder="" id="zj_name" name="zj_name">
+			</div>
+		</div>
+		
+		
+		<div class="row cl">
+			<div class="col-xs-8 col-sm-9 col-xs-offset-4 col-sm-offset-3">
+				<button type="button" class="btn btn-success radius" id="save" name="save" ><i class="icon-ok"></i> 确定</button>
+			</div>
+		</div>
+	</form>
+</article>
+{include file="../application/index/view/Public/_footer.html"/}
+<script type="text/javascript">
+	$("#save").click(function () {
+		var socialSecurity = $("#socialSecurity").val();
+		var name = $("#name").val();
+		var pid = $("#pid").val();
+		var bankAccount = $("#bankAccount").val();
+		var bankBranch = $("#bankBranch").val();
+		var benefits = $("#benefits").val();
+		var monthNumber = $("#monthNumber").val();
+		var surplusMonthNumber = $("#surplusMonthNumber").val();
+		var tel = $("#tel").val();
+		var zj_name = $("#zj_name").val();
+		$.ajax({
+			type: 'POST',
+			dataType: 'json',
+			data:{id:{$info.id},socialSecurity:socialSecurity,name:name,pid:pid,bankAccount:bankAccount,benefits:benefits,monthNumber:monthNumber,surplusMonthNumber:surplusMonthNumber,tel:tel,zj_name:zj_name},
+			success: function(data){
+	            if(data.code==1){
+	            	layer.msg("操作成功", {icon: 1,time: 800 }, function () {
+	            		// layer.close(index_r);
+	            		parent.location.reload();
+	                    // window.location.href = document.location;
+	                });
+	            }else{
+					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+
+	            }
+			},
+			error:function(data) {
+				layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
+			}
+		});	
+	})
+</script>
