@@ -118,7 +118,7 @@
 					<li><a data-href="index.php/index/syj/syj3.html" data-title="失业金申领管理" href="javascript:void(0)">失业金报表上传</a></li>
 					{/in}
 					{in name="37" value="$authority_list_1"}
-					{if condition="$res_fixed eq 1"}
+					{if condition="$res_fixed eq 1 OR $res_fixed eq 0"}
 					<li><a data-href="index.php/index/syj/syj1.html" data-title="生成初一表" href="javascript:void(0)">初一表</a></li>
 					{/if}
 					{/in}
@@ -143,10 +143,29 @@
 					<li><a data-href="index.php/index/syj/syj5.html" data-title="定表数据" href="javascript:void(0)">定表数据</a></li>
 					{/if}
 					{/in}
+
+					{in name="42" value="$authority_list_1"}
+					<li><a data-href="index.php/index/file/syj_file.html" data-title="文件管理" href="javascript:void(0)">文件管理</a></li>
+					{/in}
 				</ul>
 			</dd>
 		</dl>
 		{/in}
+
+		{in name="43" value="$authority_list_0"}
+		<dl>
+			<dt><i class="Hui-iconfont">&#xe616;</i>人员管理<i class="Hui-iconfont menu_dropdown-arrow">&#xe6d5;</i></dt>
+			<dd>
+				<ul>
+					{in name="44" value="$authority_list_1"}
+					<li><a data-href="index.php/index/Syj/check_user_data.html" data-title="人员信息查询" href="javascript:void(0)">人员信息查询</a></li>
+					{/in}
+				</ul>
+			</dd>
+		</dl>
+		{/in}
+
+
 
 
 		
