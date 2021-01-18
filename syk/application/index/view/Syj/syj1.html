@@ -252,7 +252,9 @@ $("#accomplish").click(function() {
 			dataType: 'json',
 			success: function(data){
 				if (data.code == 1) {
-					layer.msg('操作成功',{icon:1,time:800});
+					layer.msg('操作成功',{icon:1,time:800},function () {
+						top.location.reload();
+					});
 				}else{
 					layer.msg('处理失败,请稍后重试', {icon: 2,time: 800});
 				}

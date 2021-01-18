@@ -1679,7 +1679,7 @@ class Syj extends Base
     //查看镇街汇总数据
     public function check_zj_all_list()
     {
-
+        
         return $this->fetch();
     }
 
@@ -1785,8 +1785,6 @@ class Syj extends Base
         }
     }
 
-    
-
     //表格导出处理
     public function export_syj5(){
         //1.从数据库中取出数据
@@ -1868,35 +1866,17 @@ class Syj extends Base
         exit;
     }
 
-
-    //数据对比excel
-    public function test()
+    //查询人员信息
+    public function check_user_data()
     {
-        $a1 = Db::table('syj_fixed_data')->select();
-        // $a2 = Db::table('test2')->limit(10)->select();
-        $pid_arr = [];
-        foreach ($a1 as $key => $value) {
-            $pid = $value['pid'];
-            $test2_info = Db::table('test2')->where('pid',$pid)->find();
-            if (!$test2_info) {
-                $pid_arr[$key]['pid'] = $pid;
-                $pid_arr[$key]['instructions'] = "A有B没有";//正式上线后，文字描述换成数字
-            }else{
-                if ($test2_info['socialSecurity'] != $value['socialSecurity'] OR $test2_info['name'] != $value['name'] OR $test2_info['bankAccount'] != $value['bankAccount'] OR $test2_info['ban kBranch'] != $value['bankBranch'] OR $test2_info['startBank'] != $value['startBank'] OR $test2_info['accountProvince'] != $value['accountProvince'] OR $test2_info['accountCity'] != $value['accountCity'] OR $test2_info['accountArea'] != $value['accountArea'] OR $test2_info['remittancePurpose'] != $value['remittancePurpose'] OR $test2_info['benefits'] != $value['benefits'] OR $test2_info['remarks'] != $value['remarks'] OR $test2_info['monthNumber'] != $value['monthNumber'] OR $test2_info['sendMonthNumber'] != $value['sendMonthNumber'] OR $test2_info['tel'] != $value['tel'] OR $test2_info['zj_name'] != $value['zj_name']) {
-                    $pid_arr[$key]['pid'] = $pid;
-                    $pid_arr[$key]['instructions'] = "数据差异";//正式上线后，文字描述换成数字
-                }
-            }
-            
-
+        if (input('pid')) {
+            $where['pid'] = input('pid');
+            $where['state'] = '1';
+            $res = Db::table('syj_fixed_data')->where($where)->select();
+            $this->assign('data',$res);
         }
-        Db::table('test')->insertAll($pid_arr);
-
-    }
-
-    public function test2()
-    {
         return $this->fetch();
     }
+
    
 }
