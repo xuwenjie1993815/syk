@@ -684,7 +684,7 @@ class Syj extends Base
                     $data[$a]['name'] = rtrim($objExcel->getActiveSheet()->getCell("C".$i)->getValue());
                     $data[$a]['sex'] = rtrim($objExcel->getActiveSheet()->getCell("D".$i)->getValue());
                     $data[$a]['pid'] = rtrim($objExcel->getActiveSheet()->getCell("E".$i)->getValue());
-                    $data[$a]['age'] = rtrim($objExcel->getActiveSheet()->getCell("F".$i)->getValue());
+                    $data[$a]['age'] = 0;
 
                     $data[$a]['bankAccount'] = rtrim($objExcel->getActiveSheet()->getCell("G".$i)->getValue());
                     $data[$a]['bankBranch'] = rtrim($objExcel->getActiveSheet()->getCell("H".$i)->getValue());
